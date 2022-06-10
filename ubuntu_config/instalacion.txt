@@ -1,0 +1,70 @@
+sudo apt update && sudo apt upgrade
+sudo apt install apache2
+sudo ufw allow in "Apache Full"
+sudo ufw allow in "OpenSSH"
+sudo ufw allow mysql
+# sudo ufw allow 3306
+sudo ufw enable
+sudo systemctl restart apache2
+
+sudo apt install mariadb-server mariadb-client
+sudo mysql_secure_installation
+# Sentencias sql
+# mysql
+# create database metacar;
+# exit;
+
+sudo vim /etc/mysql/mariadb.conf.d/50-server.cnf
+bind-address = 0.0.0.0
+sudo systemctl restart mariadb
+
+
+grant all privileges on *.* to admin identified by '44243484' with grant option;
+flush privileges;
+
+#https://tecadmin.net/how-to-install-php-on-ubuntu-22-04/
+#https://www.digitalocean.com/community/tutorials/how-to-install-php-7-4-and-set-up-a-local-development-environment-on-ubuntu-20-04
+sudo apt install software-properties-common ca-certificates lsb-release apt-transport-https
+LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
+sudo apt update
+sudo apt -y install php7.4
+sudo apt-get install -y php7.4-cli php7.4-json php7.4-common php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-xmlrpc php7.4-bcmath libapache2-mod-php7.4 php7.4-xmlrpc php7.4-imagick php7.4-dev php7.4-imap php7.4-opcache php7.4-soap php7.4-intl -y
+
+
+sudo apt install -y curl git
+curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/bin --filename=composer
+
+# INSTALACION DE METACAR LARAVEL
+sudo mkdir /var/www/metacar
+cd /var/www/metacar
+sudo git init
+sudo git remote add origin https://github.com/7noel/metacar.git
+sudo git pull origin master
+# para sobreescribir archivos
+sudo git reset --hard origin/master
+sudo composer install
+# copiar .env
+#config virtualhost
+sudo cp /var/www/metacar/ubuntu_config/metacar.conf /etc/apache2/sites-available/metacar.conf
+
+#CERBOT LICENCIAS
+
+
+
+# INSTALACION DE PHPMYADMIN
+# https://computingforgeeks.com/how-to-install-latest-phpmyadmin-on-ubuntu-debian/
+wget https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz
+tar xvf phpMyAdmin-latest-all-languages.tar.gz
+sudo mv phpMyAdmin-*/ /usr/share/phpmyadmin
+sudo mkdir -p /var/lib/phpmyadmin/tmp
+sudo chown -R www-data:www-data /var/lib/phpmyadmin
+sudo mkdir /etc/phpmyadmin/
+sudo cp /usr/share/phpmyadmin/config.sample.inc.php  /usr/share/phpmyadmin/config.inc.php
+sudo vim /usr/share/phpmyadmin/config.inc.php
+# EDITAR LAS SIGUIENTES LINEAS
+$cfg['blowfish_secret'] = 'H2OxcGXxflSd8JwrwVlh6KW6s2rER63i';
+$cfg['TempDir'] = '/var/lib/phpmyadmin/tmp';
+
+sudo vim /etc/apache2/conf-enabled/phpmyadmin.conf
+
+sudo cp
