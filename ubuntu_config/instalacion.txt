@@ -43,12 +43,21 @@ sudo git pull origin master
 # para sobreescribir archivos
 sudo git reset --hard origin/master
 sudo composer install
+php artisan storage:link
+sudo chgrp -R www-data /var/www/metacar/
+sudo chmod -R 775 /var/www/metacar/storage
+php artisan migrate:refresh --seed
 # copiar .env
+
 #config virtualhost
 sudo cp /var/www/metacar/ubuntu_config/metacar.conf /etc/apache2/sites-available/metacar.conf
+sudo a2ensite metacar.conf
+sudo a2enmod rewrite
+sudo systemctl restart apache2
 
 #CERBOT LICENCIAS
-
+sudo apt install certbot python3-certbot-apache
+sudo certbot --apache
 
 
 # INSTALACION DE PHPMYADMIN
@@ -62,9 +71,7 @@ sudo mkdir /etc/phpmyadmin/
 sudo cp /usr/share/phpmyadmin/config.sample.inc.php  /usr/share/phpmyadmin/config.inc.php
 sudo vim /usr/share/phpmyadmin/config.inc.php
 # EDITAR LAS SIGUIENTES LINEAS
-$cfg['blowfish_secret'] = 'H2OxcGXxflSd8JwrwVlh6KW6s2rER63i';
-$cfg['TempDir'] = '/var/lib/phpmyadmin/tmp';
-
-sudo vim /etc/apache2/conf-enabled/phpmyadmin.conf
-
-sudo cp
+# $cfg['blowfish_secret'] = 'H2OxcGXxflSd8JwrwVlh6KW6s2rER63i';
+# $cfg['TempDir'] = '/var/lib/phpmyadmin/tmp';
+sudo cp /var/www/metacar/ubuntu_config/phpmyadmin.conf /etc/apache2/conf-enabled/phpmyadmin.conf
+sudo systemctl restart apache2
