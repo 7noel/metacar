@@ -600,7 +600,26 @@ function addRowProduct(data='') {
         $('.withoutTax').show()
     }
 }
-
+tr = `<tr>
+        <input class="productId" data-productid="" name="${prefix}[${items}][product_id]" type="hidden">
+        <input class="unitId" data-unitid="" name="${prefix}[${items}][unit_id]" type="hidden">
+        <input class="categoryId" data-categoryid="" name="${prefix}[${items}][category_id]" type="hidden">
+        <input class="subCategoryId" data-subcategoryid="" name="${prefix}[${items}][sub_category_id]" type="hidden">
+        <td width="100px">
+            <select class="form-control form-control-sm categoria" data-categoria="" name="${prefix}[${items}][categoria]"><option value="LUBRICANTES">LUBRICANTES</option><option value="TERCEROS">TERCEROS</option><option value="PLANCHADO Y PINTURA">PLANCHADO Y PINTURA</option><option value="MANO DE OBRA">MANO DE OBRA</option><option value="REPUESTOS">REPUESTOS</option><option value="MATERIALES DE CONSUMO">MATERIALES DE CONSUMO</option></select>
+        </td>
+        <td width="100px"><input class="form-control form-control-sm txtProduct" data-product="" required="required" name="${prefix}[${items}][txtProduct]" type="text"></td>
+        <td width="100px"><input class="form-control form-control-sm txtCantidad text-right" data-cantidad="" name="${prefix}[${items}][quantity]" type="text"></td>
+                    <td width="100px" class="withTax"><input class="form-control form-control-sm txtPrecio text-right" data-precio="" name="${prefix}[${items}][price]" type="text"></td>
+            <td width="100px" class="withoutTax"><input class="form-control form-control-sm txtValue text-right" data-value="" name="${prefix}[${items}][value]" type="text"></td>
+                <td width="100px"><input class="form-control form-control-sm txtDscto text-right" data-dscto="" name="${prefix}[${items}][d1]" type="text"></td>
+        <td width="100px" class="d-none"><input class="form-control form-control-sm txtDscto2 text-right" data-dscto2="" name="${prefix}[${items}][d2]" type="text"></td>
+        <td width="100px" class="withoutTax"> <span class='form-control form-control-sm txtTotal text-right' data-total></span> </td>
+        <td width="100px" class="withTax"> <span class='form-control form-control-sm txtPriceItem text-right' data-price_item></span> </td>
+        <td width="100px" class="text-center form-inline">
+            <a href="#" class="btn btn-outline-danger btn-sm btn-delete-item" title="Eliminar"><i class="far fa-trash-alt"></i></a>
+        </td>
+    </tr>`
 function renderTemplateRowProduct (data) {
     if (!!document.getElementById('categoria')) {
         prefix = 'custom_details'
@@ -611,27 +630,49 @@ function renderTemplateRowProduct (data) {
         ele = document.getElementById("tableItems").lastElementChild.querySelector("[data-product]");
         if (!isDesignEnabled(ele, data.id)) {return true}
     }
-    var clone = activateTemplate("#template-row-item")
+    // var clone = activateTemplate("#template-row-item")
     var items = $('#items').val()
-    clone.querySelector("[data-categoria]").setAttribute("name", prefix + "[" + items + "][categoria]")
-    if (!!document.getElementById('categoria')) {
-        clone.querySelector("[data-categoria]").value = document.getElementById('categoria').value
-    }
-    clone.querySelector("[data-unitid]").setAttribute("name", prefix + "[" + items + "][unit_id]")
-    clone.querySelector("[data-categoryid]").setAttribute("name", prefix + "[" + items + "][category_id]")
-    clone.querySelector("[data-subcategoryid]").setAttribute("name", prefix + "[" + items + "][sub_category_id]")
-    clone.querySelector("[data-product]").setAttribute("name", prefix + "[" + items + "][txtProduct]")
-    clone.querySelector("[data-cantidad]").setAttribute("name", prefix + "[" + items + "][quantity]")
-    clone.querySelector("[data-precio]").setAttribute("name", prefix + "[" + items + "][price]")
-    clone.querySelector("[data-value]").setAttribute("name", prefix + "[" + items + "][value]")
-    clone.querySelector("[data-dscto]").setAttribute("name", prefix + "[" + items + "][d1]")
-    clone.querySelector("[data-dscto2]").setAttribute("name", prefix + "[" + items + "][d2]")
+    // clone.querySelector("[data-categoria]").setAttribute("name", prefix + "[" + items + "][categoria]")
+    clone = `<tr>
+        <input class="productId" data-productid="" name="${prefix}[${items}][product_id]" type="hidden">
+        <input class="unitId" data-unitid="" name="${prefix}[${items}][unit_id]" type="hidden">
+        <input class="categoryId" data-categoryid="" name="${prefix}[${items}][category_id]" type="hidden">
+        <input class="subCategoryId" data-subcategoryid="" name="${prefix}[${items}][sub_category_id]" type="hidden">
+        <td width="100px">
+            <select class="form-control form-control-sm categoria" data-categoria="" name="${prefix}[${items}][categoria]"><option value="LUBRICANTES">LUBRICANTES</option><option value="TERCEROS">TERCEROS</option><option value="PLANCHADO Y PINTURA">PLANCHADO Y PINTURA</option><option value="MANO DE OBRA">MANO DE OBRA</option><option value="REPUESTOS">REPUESTOS</option><option value="MATERIALES DE CONSUMO">MATERIALES DE CONSUMO</option></select>
+        </td>
+        <td width="100px"><input class="form-control form-control-sm txtProduct" data-product="" required="required" name="${prefix}[${items}][txtProduct]" type="text"></td>
+        <td width="100px"><input class="form-control form-control-sm txtCantidad text-right" data-cantidad="" name="${prefix}[${items}][quantity]" type="text"></td>
+                    <td width="100px" class="withTax"><input class="form-control form-control-sm txtPrecio text-right" data-precio="" name="${prefix}[${items}][price]" type="text"></td>
+            <td width="100px" class="withoutTax"><input class="form-control form-control-sm txtValue text-right" data-value="" name="${prefix}[${items}][value]" type="text"></td>
+                <td width="100px"><input class="form-control form-control-sm txtDscto text-right" data-dscto="" name="${prefix}[${items}][d1]" type="text"></td>
+        <td width="100px" class="d-none"><input class="form-control form-control-sm txtDscto2 text-right" data-dscto2="" name="${prefix}[${items}][d2]" type="text"></td>
+        <td width="100px" class="withoutTax"> <span class='form-control form-control-sm txtTotal text-right' data-total></span> </td>
+        <td width="100px" class="withTax"> <span class='form-control form-control-sm txtPriceItem text-right' data-price_item></span> </td>
+        <td width="100px" class="text-center form-inline">
+            <a href="#" class="btn btn-outline-danger btn-sm btn-delete-item" title="Eliminar"><i class="far fa-trash-alt"></i></a>
+        </td>
+    </tr>`
+    // clone.querySelector("[data-unitid]").setAttribute("name", prefix + "[" + items + "][unit_id]")
+    // clone.querySelector("[data-categoryid]").setAttribute("name", prefix + "[" + items + "][category_id]")
+    // clone.querySelector("[data-subcategoryid]").setAttribute("name", prefix + "[" + items + "][sub_category_id]")
+    // clone.querySelector("[data-product]").setAttribute("name", prefix + "[" + items + "][txtProduct]")
+    // clone.querySelector("[data-cantidad]").setAttribute("name", prefix + "[" + items + "][quantity]")
+    // clone.querySelector("[data-precio]").setAttribute("name", prefix + "[" + items + "][price]")
+    // clone.querySelector("[data-value]").setAttribute("name", prefix + "[" + items + "][value]")
+    // clone.querySelector("[data-dscto]").setAttribute("name", prefix + "[" + items + "][d1]")
+    // clone.querySelector("[data-dscto2]").setAttribute("name", prefix + "[" + items + "][d2]")
+
     // clone.querySelector("[data-isdeleted]").setAttribute("name", "details[" + items + "][is_deleted]")
-    if (items>0 && $("#custom_details").val() != true) {$("input[name='details["+(items-1)+"][txtProduct]']").attr('disabled', true)}
+    if (items>0 && $("#custom_details").val() != true) {$("input[name='"+prefix+"["+(items-1)+"][txtProduct]']").attr('disabled', true)}
     
+    $("#tableItems").append(clone)
+    if (!!document.getElementById('categoria')) {
+        if (document.getElementById('categoria').value != '') {$("select[name='"+prefix+"["+(items)+"][categoria]']").val(document.getElementById('categoria').value)}
+        // clone.querySelector("[data-categoria]").value = document.getElementById('categoria').value
+    }
     items = parseInt(items) + 1
     $('#items').val(items)
-    $("#tableItems").append(clone)
     el = document.getElementById("tableItems").lastElementChild.querySelector("[data-product]")
     if (data != '') {
         setRowProduct(el, data)

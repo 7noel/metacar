@@ -93,7 +93,7 @@ class OrdersController extends Controller {
 	public function store()
 	{
 		$data = request()->all();
-		dd($data);
+		// dd($data);
 		$this->repo->save($data);
 		if (isset($data['last_page']) && $data['last_page'] != '') {
 			return redirect()->to($data['last_page']);

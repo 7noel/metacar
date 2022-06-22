@@ -1,7 +1,7 @@
 {!! Form::hidden('my_company', session('my_company')->id, ['id'=>'my_company']) !!}
 {!! Form::hidden('with_tax', 0, ['id'=>'with_tax']) !!}
 {!! Form::hidden('custom_details', 1, ['id'=>'custom_details']) !!}
-{!! Form::hidden('categoria', 1, ['id'=>'categoria']) !!}
+{!! Form::hidden('categoria', '', ['id'=>'categoria']) !!}
 {!! Form::hidden('company_id', null, ['id'=>'company_id']) !!}
 {!! Form::hidden('car_id', null, ['id'=>'car_id']) !!}
 {!! Form::hidden('sn', null, ['id'=>'sn']) !!}

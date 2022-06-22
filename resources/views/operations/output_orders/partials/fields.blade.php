@@ -224,6 +224,9 @@ canvas.addEventListener( 'mousemove', drawLine );
 canvas.addEventListener( 'mouseup', stopDrawing );
 canvas.addEventListener( 'mouseout', stopDrawing );
 
+canvas.addEventListener('touchstart', startDrawing, false);
+canvas.addEventListener('touchmove', drawLine, false);
+
 document.getElementById("btn-reset").onclick = function() {  
 	loadImage(canvas, '/img/inventory.jpeg')
 }

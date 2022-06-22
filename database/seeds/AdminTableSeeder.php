@@ -36,8 +36,8 @@ class AdminTableSeeder extends Seeder {
     public function run()
     {
         Company::create(['company_name'=>'MGT MOTORS SOCIEDAD ANONIMA CERRADA', 'id_type'=>'6', 'doc'=>'20608578511', 'address'=>'CAL. CATALINO MIRANDA NRO. 163', 'ubigeo_code'=>'150140', 'country' => 'PE', 'entity_type' => 'my_company', 'email' => 'mgt.motors360@gmail.com', 'phone' => '(01) 247 5424', 'mobile' => '']);
-        Company::create(['company_name'=>'ASESOR DE SERVICIO', 'paternal_surname'=>'DE SERVICIO', 'maternal_surname'=>'', 'name'=>'ASESOR', 'id_type'=>'1', 'doc'=>'99999999', 'address'=>'', 'ubigeo_code'=>'150103', 'country' => 'PE', 'entity_type' => 'employees', 'job_id'=>35, 'my_company'=>1]);
-        Company::create(['company_name'=>'TECNICO DEMO', 'paternal_surname'=>'DEMO', 'maternal_surname'=>'', 'name'=>'TECNICO', 'id_type'=>'1', 'doc'=>'99999999', 'address'=>'', 'ubigeo_code'=>'150103', 'country' => 'PE', 'entity_type' => 'employees', 'job_id'=>34, 'my_company'=>1]);
+        Company::create(['company_name'=>'ASESOR DE SERVICIO', 'paternal_surname'=>'DE SERVICIO', 'maternal_surname'=>'', 'name'=>'ASESOR', 'id_type'=>'1', 'doc'=>'99999999', 'address'=>'', 'ubigeo_code'=>'150103', 'country' => 'PE', 'entity_type' => 'employees', 'job_id'=>19, 'my_company'=>1]);
+        Company::create(['company_name'=>'TECNICO DEMO', 'paternal_surname'=>'DEMO', 'maternal_surname'=>'', 'name'=>'TECNICO', 'id_type'=>'1', 'doc'=>'99999999', 'address'=>'', 'ubigeo_code'=>'150103', 'country' => 'PE', 'entity_type' => 'employees', 'job_id'=>20, 'my_company'=>1]);
 
         User::create(['name' => 'Noel', 'email' => 'noel.logan@gmail.com', 'password' => '123', 'is_superuser' => true]);
         User::create(['name' => 'JAVIER POLO', 'email' => 'jpolo@makim.pe', 'password' => '123', 'is_superuser' => true]);
@@ -62,11 +62,20 @@ class AdminTableSeeder extends Seeder {
         Table::create(['type' => 'units', 'my_company' => 1, 'name' => 'KILOGRAMO', 'symbol' => 'kg', 'relation_id' => 3, 'value_1' => 1, 'code' => 'NIU']); // 15
         Table::create(['type' => 'units', 'my_company' => 1, 'name' => 'SERVICIO', 'symbol' => 'zz', 'relation_id' => 4, 'value_1' => 1, 'code' => 'ZZ']); // 15
 
-
         Table::create(['type' => 'categories', 'my_company' => 1, 'name' => 'SERVICIO', 'code' => '01']); // 17
         Table::create(['type' => 'categories', 'my_company' => 1, 'name' => 'REPUESTO', 'code' => '01']); // 18
 
-        Table::create(['type' => 'sub_categories', 'my_company' => 1, 'name' => 'MECANICA', 'relation_id' => 17]); // 2168
+        Table::create(['type' => 'jobs', 'my_company' => 1, 'name' => 'ASESOR']); // 2132
+        Table::create(['type' => 'jobs', 'my_company' => 1, 'name' => 'TÉCNICO']); //2131
+        Table::create(['type' => 'jobs', 'my_company' => 1, 'name' => 'ANALISTA DE SISTEMAS']); // 2125
+        Table::create(['type' => 'jobs', 'my_company' => 1, 'name' => 'GERENTE GENERAL']); // 2126
+        Table::create(['type' => 'jobs', 'my_company' => 1, 'name' => 'ADMINISTRADOR']); // 2127
+        // Table::create(['type' => 'jobs', 'my_company' => 1, 'name' => 'ASISTENTE ADMINISTRATIVO']); // 2128
+        Table::create(['type' => 'jobs', 'my_company' => 1, 'name' => 'CREDITO Y FINANZAS']); // 2129
+        Table::create(['type' => 'jobs', 'my_company' => 1, 'name' => 'FACTURADOR']); // 2130
+        
+
+        Table::create(['type' => 'sub_categories', 'my_company' => 1, 'name' => 'z', 'relation_id' => 17]); // 2168
         Table::create(['type' => 'sub_categories', 'my_company' => 1, 'name' => 'PLANCHADO', 'relation_id' => 17]); // 2169
         Table::create(['type' => 'sub_categories', 'my_company' => 1, 'name' => 'PINTURA', 'relation_id' => 17]); // 2170
         Table::create(['type' => 'sub_categories', 'my_company' => 1, 'name' => 'ACCESORIOS', 'relation_id' => 18]); // 2171
@@ -76,6 +85,7 @@ class AdminTableSeeder extends Seeder {
         Table::create(['type' => 'sub_categories', 'my_company' => 1, 'name' => 'CHASIS', 'relation_id' => 18]); // 2175
         Table::create(['type' => 'sub_categories', 'my_company' => 1, 'name' => 'MOTOR', 'relation_id' => 18]); // 2176
         Table::create(['type' => 'sub_categories', 'my_company' => 1, 'name' => 'OTROS', 'relation_id' => 18]); // 2177
+
 
         // Table::create(['type' => 'brands', 'my_company' => 1, 'name' => 'ADVANCED']); // 2178
         // Table::create(['type' => 'brands', 'my_company' => 1, 'name' => 'EUROCOLUMBUS']); // 2179
@@ -121,15 +131,6 @@ class AdminTableSeeder extends Seeder {
         // Table::create(['type' => 'id_type', 'name' => 'DOC.TRIB.NO.DOM.SIN.RUC', 'symbol' => 'NDO', 'code' => '0']); // 2123
         // Table::create(['type' => 'id_type', 'name' => 'VARIOS', 'symbol' => 'S/D', 'code' => '-']); // 2124
 
-
-        Table::create(['type' => 'jobs', 'my_company' => 1, 'name' => 'ANALISTA DE SISTEMAS']); // 2125
-        Table::create(['type' => 'jobs', 'my_company' => 1, 'name' => 'GERENTE GENERAL']); // 2126
-        Table::create(['type' => 'jobs', 'my_company' => 1, 'name' => 'ADMINISTRADOR']); // 2127
-        // Table::create(['type' => 'jobs', 'my_company' => 1, 'name' => 'ASISTENTE ADMINISTRATIVO']); // 2128
-        Table::create(['type' => 'jobs', 'my_company' => 1, 'name' => 'CREDITO Y FINANZAS']); // 2129
-        Table::create(['type' => 'jobs', 'my_company' => 1, 'name' => 'FACTURADOR']); // 2130
-        Table::create(['type' => 'jobs', 'my_company' => 1, 'name' => 'TÉCNICO']); //2131
-        Table::create(['type' => 'jobs', 'my_company' => 1, 'name' => 'ASESOR']); // 2132
 
         Brand::create(['name' => 'HONDA', 'my_company'=>1]);
         Brand::create(['name' => 'CREVROLET', 'my_company'=>1]);
