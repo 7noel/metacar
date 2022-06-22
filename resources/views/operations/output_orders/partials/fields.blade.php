@@ -244,15 +244,15 @@ function dibujarLinea(event) {
         // Estilos de linea
         // ctx.lineJoin = ctx.lineCap = 'round';
         // Marca el nuevo punto
-        if (event.changedTouches == undefined) {
+        // if (event.changedTouches == undefined) {
             // Versión ratón
             nuevaPosicionX = event.offsetX;
             nuevaPosicionY = event.offsetY;
-        } else {
+        // } else {
             // Versión touch, pantalla tactil
-            nuevaPosicionX = event.changedTouches[0].pageX - correccionX;
-            nuevaPosicionY = event.changedTouches[0].pageY - correccionY;
-        }
+            // nuevaPosicionX = event.changedTouches[0].pageX - correccionX;
+            // nuevaPosicionY = event.changedTouches[0].pageY - correccionY;
+        // }
         // Guarda la linea
         guardarLinea();
         // Redibuja todas las lineas guardadas
