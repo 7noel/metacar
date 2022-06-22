@@ -246,8 +246,8 @@ function dibujarLinea(event) {
         // Marca el nuevo punto
         if (event.changedTouches == undefined) {
             // Versión ratón
-            nuevaPosicionX = event.layerX;
-            nuevaPosicionY = event.layerY;
+            nuevaPosicionX = event.offsetX;
+            nuevaPosicionY = event.offsetY;
         } else {
             // Versión touch, pantalla tactil
             nuevaPosicionX = event.changedTouches[0].pageX - correccionX;
