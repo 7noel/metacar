@@ -241,18 +241,19 @@ function guardarLinea() {
 function dibujarLinea(event) {
     event.preventDefault();
     if (pintarLinea) {
+    	var offset = $("#canvas").offset();
         // Estilos de linea
         // ctx.lineJoin = ctx.lineCap = 'round';
         // Marca el nuevo punto
-        // if (event.changedTouches == undefined) {
+        if (event.changedTouches == undefined) {
             // Versión ratón
             nuevaPosicionX = event.offsetX;
             nuevaPosicionY = event.offsetY;
-        // } else {
+        } else {
             // Versión touch, pantalla tactil
-            // nuevaPosicionX = event.changedTouches[0].pageX - correccionX;
-            // nuevaPosicionY = event.changedTouches[0].pageY - correccionY;
-        // }
+            nuevaPosicionX = event.changedTouches[0].pageX - offset.left;
+            nuevaPosicionY = event.changedTouches[0].pageY - offset.top;
+        }
         // Guarda la linea
         guardarLinea();
         // Redibuja todas las lineas guardadas
