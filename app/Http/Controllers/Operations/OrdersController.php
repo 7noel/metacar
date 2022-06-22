@@ -119,7 +119,7 @@ class OrdersController extends Controller {
 	{
 		$action = "edit";
 		$model = $this->repo->findOrFail($id);
-		dd(collect($model->custom_details)->sortBy('quantity'));
+		// dd(collect($model->custom_details)->sortBy('quantity'));
 		$quote = $model->quote;
 		$my_companies = $this->companyRepo->getListMyCompany();
 		$payment_conditions = $this->paymentConditionRepo->getList();

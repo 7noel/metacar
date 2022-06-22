@@ -169,18 +169,15 @@ if (ot!='') {
 } else {
 	image_url = "/img/inventory.jpeg"
 }
-var canvas = document.getElementById("canvas"),
+var miCanvas = document.getElementById("canvas"),
 	context = canvas.getContext("2d"),
 	painting = false,
 	lastX = 0,
 	lastY = 0,
 	lineThickness = 1;
-if (canvas.getContext) {
-	loadImage(canvas, image_url)
+if (miCanvas.getContext) {
+	loadImage(miCanvas, image_url)
 }
-// const canvas = document.querySelector( '.js-paint' );
-// const context = canvas.getContext( '2d' );
-
 
 const colorPicker = document.querySelector('.js-color-picker')
 
@@ -197,38 +194,102 @@ lineWidthRange.addEventListener( 'input', event => {
     context.lineWidth = width
 })
 
-let x = 0, y = 0;
-let isMouseDown = false;
+//======================================================================
+// VARIABLES
+//======================================================================
+// let miCanvas = document.querySelector('#pizarra');
+let lineas = [];
+let correccionX = 0;
+let correccionY = 0;
+let pintarLinea = false;
+// Marca el nuevo punto
+let nuevaPosicionX = 0;
+let nuevaPosicionY = 0;
 
-const stopDrawing = () => { isMouseDown = false; }
-const startDrawing = event => {
-    isMouseDown = true;   
-   [x, y] = [event.offsetX, event.offsetY];  
+let posicion = miCanvas.getBoundingClientRect()
+correccionX = posicion.x;
+correccionY = posicion.y;
+
+// miCanvas.width = 500;
+// miCanvas.height = 500;
+
+//======================================================================
+// FUNCIONES
+//======================================================================
+
+/**
+ * Funcion que empieza a dibujar la linea
+ */
+function empezarDibujo() {
+    pintarLinea = true;
+    lineas.push([]);
+};
+
+/**
+ * Funcion que guarda la posicion de la nueva línea
+ */
+function guardarLinea() {
+    lineas[lineas.length - 1].push({
+        x: nuevaPosicionX,
+        y: nuevaPosicionY
+    });
 }
-const drawLine = event => {
-    if ( isMouseDown ) {
-        const newX = event.offsetX;
-        const newY = event.offsetY;
+
+/**
+ * Funcion dibuja la linea
+ */
+function dibujarLinea(event) {
+    event.preventDefault();
+    if (pintarLinea) {
+        // Estilos de linea
+        // ctx.lineJoin = ctx.lineCap = 'round';
+        // Marca el nuevo punto
+        if (event.changedTouches == undefined) {
+            // Versión ratón
+            nuevaPosicionX = event.layerX;
+            nuevaPosicionY = event.layerY;
+        } else {
+            // Versión touch, pantalla tactil
+            nuevaPosicionX = event.changedTouches[0].pageX - correccionX;
+            nuevaPosicionY = event.changedTouches[0].pageY - correccionY;
+        }
+        // Guarda la linea
+        guardarLinea();
+        // Redibuja todas las lineas guardadas
         context.beginPath();
-        context.moveTo( x, y );
-        context.lineTo( newX, newY );
+        lineas.forEach(function (segmento) {
+            context.moveTo(segmento[0].x, segmento[0].y);
+            segmento.forEach(function (punto, index) {
+                context.lineTo(punto.x, punto.y);
+            });
+        });
         context.stroke();
-        //[x, y] = [newX, newY];
-        x = newX;
-        y = newY;
     }
 }
 
-canvas.addEventListener( 'mousedown', startDrawing );
-canvas.addEventListener( 'mousemove', drawLine );
-canvas.addEventListener( 'mouseup', stopDrawing );
-canvas.addEventListener( 'mouseout', stopDrawing );
+/**
+ * Funcion que deja de dibujar la linea
+ */
+function pararDibujar () {
+    pintarLinea = false;
+    guardarLinea();
+}
 
-canvas.addEventListener('touchstart', startDrawing, false);
-canvas.addEventListener('touchmove', drawLine, false);
+//======================================================================
+// EVENTOS
+//======================================================================
+
+// Eventos raton
+miCanvas.addEventListener('mousedown', empezarDibujo, false);
+miCanvas.addEventListener('mousemove', dibujarLinea, false);
+miCanvas.addEventListener('mouseup', pararDibujar, false);
+
+// Eventos pantallas táctiles
+miCanvas.addEventListener('touchstart', empezarDibujo, false);
+miCanvas.addEventListener('touchmove', dibujarLinea, false);
 
 document.getElementById("btn-reset").onclick = function() {  
-	loadImage(canvas, '/img/inventory.jpeg')
+	loadImage(miCanvas, '/img/inventory.jpeg')
 }
 
 </script>
