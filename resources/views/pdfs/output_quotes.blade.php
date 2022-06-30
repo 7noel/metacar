@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<link rel="icon" type="image/jpeg" href="./img/logo_metacar.png" />
 
-	<title>Cotización: {{ $model->sn }}-{{ $model->created_at->formatLocalized('%Y') }}</title>
+	<title>Presupuesto: {{ $model->sn }}-{{ $model->created_at->formatLocalized('%Y') }}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
@@ -21,12 +21,11 @@
 	</script>
 	<div class="header">
 		<div class="item-left">
-			
-			<img src="./img/logo_makim_doc.jpg" alt="" width="180px">
+			<img src="./img/logo_metacar.png" alt="" width="180px">
 		</div>
 		<div>
 			<h1 class="center">
-				COTIZACION: {{ str_pad($model->sn, 3, '0', STR_PAD_LEFT) }} - {{ $model->created_at->formatLocalized('%Y') }}
+				PRESUPUESTO: {{ str_pad($model->sn, 3, '0', STR_PAD_LEFT) }} - {{ $model->created_at->formatLocalized('%Y') }}
 			</h1>
 			
 		</div>
@@ -36,18 +35,19 @@
 			<strong class="label">Señor(a):</strong><span class="data-header">{{ $model->company->company_name }}</span>
 		</div>
 		<div>
-			<strong class="label">{{ config('options.client_doc.'.$model->company->id_type) }}:</strong><span class="data-header">{{ $model->company->doc }}</span>
-		</div>
-		<div>
 			<strong class="label">Dirección:</strong><span class="data-header">{{ $model->company->address . ' ' . $model->company->ubigeo->departamento . '-' . $model->company->ubigeo->provincia . '-' . $model->company->ubigeo->distrito }}</span>
 		</div>
 		<div>
-			<strong class="label">F. Emisión:</strong><span class="data-header-1">{{ $model->created_at->format('d/m/Y') }}</span>
+			<strong class="label">{{ config('options.client_doc.'.$model->company->id_type) }}:</strong><span class="data-header-1">{{ $model->company->doc }}</span>
 			<strong class="label">Placa:</strong><span class="data-header">{{ $model->car->placa }}</span>
 		</div>
 		<div>
-			<strong class="label">Condiciones:</strong><span class="data-header-1">{{ config('options.payment_conditions.'.$model->payment_condition_id) }}</span>
+			<strong class="label">F. Emisión:</strong><span class="data-header-1">{{ $model->created_at->format('d/m/Y') }}</span>
 			<strong class="label">Marca/Modelo:</strong><span class="data-header">{{ $model->car->modelo->brand->name.' '.$model->car->modelo->name }}</span>
+		</div>
+		<div>
+			<strong class="label">Condiciones:</strong><span class="data-header-1">{{ config('options.payment_conditions.'.$model->payment_condition_id) }}</span>
+			<strong class="label">Color:</strong><span class="data-header">{{ $model->car->color }}</span>
 		</div>
 		<div>
 			<strong class="label">Servicio:</strong><span class="data-header-1">{{ $model->type_service }}</span>
@@ -70,48 +70,60 @@
 				<tr>
 					<th class="th1 border center">ITEM</th>
 					<th class="th2 border center">DESCRIPCIÓN</th>
-					<th class="th3 border center">UND</th>
+					<th class="th3 border center">CANT.</th>
 					<th class="th4 border center">P. UNIT.</th>
-					<th class="th5 border center">DSCT.</th>
 					<th class="th6 border center">TOTAL</th>
 				</tr>
 			</thead>
 			<tbody>
-				@php $cat=0 @endphp
-				@php $subcat=0 @endphp
-				@foreach($model->details as $key => $detail)
-					@if($detail->category_id == 18 and $detail->category_id != $cat)
-						<tr><td class="border padding" colspan="6"><strong>{{ $detail->category->name }}</strong></td></tr>
-						@php $cat = $detail->category_id @endphp
-						@php $subcat = $detail->sub_category_id @endphp
-					@else
-						@if($detail->category_id != 18 and $detail->sub_category_id != $subcat)
-							<tr><td class="border padding" colspan="6"><strong>{{ $detail->sub_category->name }}</strong></td></tr>
-							@php $cat = $detail->category_id @endphp
-							@php $subcat = $detail->sub_category_id @endphp
-						@endif
+				@php $cat='' @endphp
+				@php $items=1 @endphp
+				@foreach(collect($model->custom_details)->sortBy('categoria') as $key => $detail)
+					@if($detail->categoria != $cat)
+						<tr><td class="border padding" colspan="5"><strong>{{ $detail->categoria }}</strong></td></tr>
+						@php $cat = $detail->categoria @endphp
 					@endif
 					<tr>
-						<td class="border center">{{ $key + 1 }}</td>
-						<td class="border">{{ $detail->product->name }}</td>
-						<td class="border center">{{ $detail->quantity.' '.$detail->unit->symbol }}</td>
-						<td class="border center">{{ $detail->price }}</td>
-						<td class="border center">{{ $detail->d1 }} %</td>
-						<td class="border center">{{ $detail->price_item }}</td>
+						<td class="border center">{{ $items }}</td>
+						<td class="border">{{ strtoupper($detail->txtProduct) }}</td>
+						<td class="border center">{{ $detail->quantity }}</td>
+						<td class="border center">{{ $detail->value }}</td>
+						<td class="border center">{{ $detail->total }}</td>
 					</tr>
+					@php $items++; @endphp
 				@endforeach
+				<tr>
+					<td colspan="5">&nbsp;</td>
+				</tr>
+				<tr>
+					<td colspan="3"></td>
+					<td class="border center">SUB TOTAL</td>
+					<td class="border center">{{ config('options.table_sunat.moneda_symbol.'.$model->currency_id)." ".number_format($model->subtotal,2) }}</td>
+				</tr>
+				<tr>
+					<td colspan="3"></td>
+					<td class="border center">IGV</td>
+					<td class="border center">{{ config('options.table_sunat.moneda_symbol.'.$model->currency_id)." ".number_format($model->tax,2) }}</td>
+				</tr>
+				<tr>
+					<td colspan="3"></td>
+					<td class="border center"><strong>TOTAL</strong></td>
+					<td class="border center"><strong>{{ config('options.table_sunat.moneda_symbol.'.$model->currency_id)." ".number_format($model->total, 2) }}</strong></td>
+				</tr>
 			</tbody> 
 		</table>
 
 		<br>
-		<table class="table-total">
+		<table class="table-quote-total" style="margin-left: 537px;">
 			<tbody>
-					<td class="left">SUB TOTAL {{ config('options.table_sunat.moneda_symbol.'.$model->currency_id)." ".$model->subtotal }}</td>
-					<td class="left">IGV (18%) {{ config('options.table_sunat.moneda_symbol.'.$model->currency_id)." ".$model->tax }}</td>
-					<td class="left">TOTAL {{ config('options.table_sunat.moneda_symbol.'.$model->currency_id)." ".$model->total }}</td>
-				</tr>
 			</tbody>
 		</table>
+		<div>
+			<b>OBSERVACIONES:</b><br>
+			PRESUPUESTO EN {{ config('options.table_sunat.moneda.'.$model->currency_id) }} E INCLUIDO IGV <br>
+			PRESUPUESTO SUJETO A VARIACION <br>
+			VÁLIDO POR 15 DÍAS
+		</div>
 
 	</div>
 	<footer>

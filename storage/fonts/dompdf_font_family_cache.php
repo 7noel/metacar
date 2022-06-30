@@ -82,5 +82,10 @@
   ),
   'roboto condensed' => array(
     '300' => $fontDir . '/roboto-condensed-300_e7008b98ab3054aae221d9265a319767',
+    '300_italic' => $fontDir . '/roboto-condensed-300-italic_a913e57dc1a5c6aad2f46a2c615483b8',
+    'italic' => $fontDir . '/roboto-condensed-italic_f390e32554faf0f16ab6f3c1d9f9c9ab',
+    'bold_italic' => $fontDir . '/roboto-condensed-bold-italic_2c3037edfc130d972721e2737f5a0339',
+    'normal' => $fontDir . '/roboto-condensed-normal_0f4b84b34f148b1ab47e419b61ac29ae',
+    'bold' => $fontDir . '/roboto-condensed-bold_518a77b8d3453f5b6004b272b16fab67',
   ),
 ) ?>

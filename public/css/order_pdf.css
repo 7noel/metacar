@@ -45,10 +45,19 @@ body{
 .left{
 	text-align: left;
 }
-.table-items, .table-total{
+.table-items, .table-total, .table-quote-total{
 	width: 100%;
 	border-collapse:collapse;
 	border: none;
+}
+.th2{
+	width: 380px;
+}
+.th1{
+	width: 50px;
+}
+.th3,.th4.th6{
+	width: 80px;
 }
 .table-total{
 	font-size: 15px;
@@ -89,7 +98,7 @@ footer{
 	/*line-height: 35px;*/
 }
 .padding{
-	padding-left: 100px;
+	padding-left: 20px;
 }
 .col-description-obs{
 	width: 173px;

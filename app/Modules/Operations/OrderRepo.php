@@ -85,13 +85,13 @@ class OrderRepo extends BaseRepo{
 			$data['warehouse_id'] = 1;
 		}
 		
-		//Calculando totales
-		$gross_value = 0;
-		$gross_precio = 0;
-		$subtotal = 0;
-		$d_items = 0;
-		$total = 0;
-		if (isset($data['details'])) {
+		if (isset($data['details']) and count($data['details'])) {
+			//Calculando totales
+			$gross_value = 0;
+			$gross_precio = 0;
+			$subtotal = 0;
+			$d_items = 0;
+			$total = 0;
 			foreach ($data['details'] as $key => $detail) {
 				if (!isset($detail['is_deleted'])) {
 					$q = $detail['quantity'];

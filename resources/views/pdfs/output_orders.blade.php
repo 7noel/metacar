@@ -19,7 +19,7 @@
 	</script>
 	<div class="header">
 		<div class="item-left">
-			<img src="./img/logo_makim_doc.jpg" alt="" width="180px">
+			<img src="./img/logo_metacar.png" alt="" width="180px">
 		</div>
 		<div>
 			<h1 class="center">

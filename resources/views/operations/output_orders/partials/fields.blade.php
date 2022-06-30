@@ -3,6 +3,9 @@
 {!! Form::hidden('company_id', ((isset($car))? $car->company_id : null), ['id'=>'company_id']) !!}
 {!! Form::hidden('car_id', ((isset($car))? $car->id : null), ['id'=>'car_id']) !!}
 {!! Form::hidden('action', $action, ['id'=>'action']) !!}
+@if(!isset($model) and isset($car))
+<input type="hidden" name="last_page" value="{{ route('output_orders.index') }}">
+@endif
 <div class="form-row mb-3">
 	<div class="col-sm-2">
 		<div class="custom-control custom-switch">

@@ -100,7 +100,7 @@
 			@foreach (config('options.inventory.col_1') as $label)
 				<tr>
 					<td class='col-check border'>
-						{!! ((isset($model->inventory[$label]) and $model->inventory[$label]==true)) ? $check : " " !!}
+						{!! ((isset($model->inventory[$label]) and $model->inventory[$label]==true)) ? $check : "&nbsp;" !!}
 					</td>
 					<td class='col-description'>{{ $label }}</td>
 				</tr>
@@ -112,7 +112,7 @@
 			@foreach (config('options.inventory.col_2') as $label)
 				<tr>
 					<td class='col-check border'>
-						{!! ((isset($model->inventory[$label]) and $model->inventory[$label]==true)) ? $check : " " !!}
+						{!! ((isset($model->inventory[$label]) and $model->inventory[$label]==true)) ? $check : "&nbsp;" !!}
 					</td>
 					<td class='col-description'>{{ $label }}</td>
 				</tr>

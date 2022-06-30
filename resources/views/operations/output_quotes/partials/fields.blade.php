@@ -5,6 +5,9 @@
 {!! Form::hidden('company_id', null, ['id'=>'company_id']) !!}
 {!! Form::hidden('car_id', null, ['id'=>'car_id']) !!}
 {!! Form::hidden('sn', null, ['id'=>'sn']) !!}
+{!! Form::hidden('total', null, ['id'=>'total']) !!}
+{!! Form::hidden('subtotal', null, ['id'=>'subtotal']) !!}
+{!! Form::hidden('tax', null, ['id'=>'tax']) !!}
 <div class="form-row mb-3">
 	<div class="col-sm-2">
 		<div class="custom-control custom-switch">

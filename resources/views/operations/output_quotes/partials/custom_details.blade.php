@@ -17,26 +17,27 @@
 	</thead>
 	<tbody id="tableItems">
 	@if(isset($model->custom_details))
-	@foreach($model->details as $detail)
+	@foreach($model->custom_details as $detail)
 		@php $categories=[]; @endphp
-		<tr data-id="{{ $detail->id }}">
-			{!! Form::hidden("details[$i][id]", $detail->id, ['class'=>'detailId','data-detailId'=>'']) !!}
-			{!! Form::hidden("details[$i][product_id]", $detail->product_id, ['class'=>'productId','data-productid'=>'']) !!}
-			{!! Form::hidden("details[$i][unit_id]", $detail->unit_id, ['class'=>'unitId','data-unitid'=>'']) !!}
-			{!! Form::hidden("details[$i][category_id]", $detail->category_id, ['class'=>'categoryId','data-categoryid'=>'']) !!}
-			{!! Form::hidden("details[$i][sub_category_id]", $detail->sub_category_id, ['class'=>'subCategoryId','data-subcategoryid'=>'']) !!}
-			<td><span class='form-control form-control-sm intern_code text-right' data-labelid>{{ $detail->product->intern_code }}</span></td>
-			<td>{!! Form::text("details[$i][txtProduct]", $detail->product->name, ['class'=>'form-control form-control-sm txtProduct', 'data-product'=>'', 'required'=>'required', 'disabled']); !!}</td>
-			<td>{!! Form::text("details[$i][quantity]", $detail->quantity, ['class'=>'form-control form-control-sm txtCantidad text-right', 'data-cantidad'=>'']) !!}</td>
+		<tr>
+			{!! Form::hidden("custom_details[$i][product_id]", $detail->product_id, ['class'=>'productId','data-productid'=>'']) !!}
+			{!! Form::hidden("custom_details[$i][unit_id]", $detail->unit_id, ['class'=>'unitId','data-unitid'=>'']) !!}
+			{!! Form::hidden("custom_details[$i][category_id]", $detail->category_id, ['class'=>'categoryId','data-categoryid'=>'']) !!}
+			{!! Form::hidden("custom_details[$i][sub_category_id]", $detail->sub_category_id, ['class'=>'subCategoryId','data-subcategoryid'=>'']) !!}
+			{!! Form::hidden("custom_details[$i][total]", $detail->total, ['class'=>'Total','data-total1'=>'']) !!}
+			{!! Form::hidden("custom_details[$i][price_item]", $detail->price_item, ['class'=>'PriceItem','data-price_item1'=>'']) !!}
+			<td>{!! Form::select("custom_details[$i][categoria]", config('options.categorias'), $detail->categoria, ['class'=>'form-control form-control-sm categoria', 'data-categoria'=>'', 'required'=>'required']); !!}</span></td>
+			<td>{!! Form::text("custom_details[$i][txtProduct]", $detail->txtProduct, ['class'=>'form-control form-control-sm txtProduct', 'data-product'=>'', 'required'=>'required']); !!}</td>
+			<td>{!! Form::text("custom_details[$i][quantity]", $detail->quantity, ['class'=>'form-control form-control-sm txtCantidad text-right', 'data-cantidad'=>'']) !!}</td>
 			@if(config('options.cambiar_precios'))
-				<td class="withTax">{!! Form::text("details[$i][price]", $detail->price, ['class'=>'form-control form-control-sm txtPrecio text-right', 'data-precio'=>'']) !!}</td>
-				<td class="withoutTax">{!! Form::text("details[$i][value]", $detail->value, ['class'=>'form-control form-control-sm txtValue text-right', 'data-value'=>'']) !!}</td>
+				<td class="withTax">{!! Form::text("custom_details[$i][price]", $detail->price, ['class'=>'form-control form-control-sm txtPrecio text-right', 'data-precio'=>'']) !!}</td>
+				<td class="withoutTax">{!! Form::text("custom_details[$i][value]", $detail->value, ['class'=>'form-control form-control-sm txtValue text-right', 'data-value'=>'']) !!}</td>
 			@else
-				<td class="withTax">{!! Form::text("details[$i][price]", $detail->price, ['class'=>'form-control form-control-sm txtPrecio text-right', 'data-precio'=>'', 'readonly'=>'readonly']) !!}</td>
-				<td class="withoutTax">{!! Form::text("details[$i][value]", $detail->value, ['class'=>'form-control form-control-sm txtValue text-right', 'data-value'=>'', 'readonly'=>'readonly']) !!}</td>
+				<td class="withTax">{!! Form::text("custom_details[$i][price]", $detail->price, ['class'=>'form-control form-control-sm txtPrecio text-right', 'data-precio'=>'', 'readonly'=>'readonly']) !!}</td>
+				<td class="withoutTax">{!! Form::text("custom_details[$i][value]", $detail->value, ['class'=>'form-control form-control-sm txtValue text-right', 'data-value'=>'', 'readonly'=>'readonly']) !!}</td>
 			@endif
-			<td>{!! Form::text("details[$i][d1]", $detail->d1, ['class'=>'form-control form-control-sm txtDscto text-right', 'data-dscto'=>'']) !!}</td>
-			<td class="d-none">{!! Form::text("details[$i][d2]", $detail->d2, ['class'=>'form-control form-control-sm txtDscto2 text-right', 'data-dscto'=>'']) !!}</td>
+			<td>{!! Form::text("custom_details[$i][d1]", $detail->d1, ['class'=>'form-control form-control-sm txtDscto text-right', 'data-dscto'=>'']) !!}</td>
+			<td class="d-none">{!! Form::text("custom_details[$i][d2]", $detail->d2, ['class'=>'form-control form-control-sm txtDscto2 text-right', 'data-dscto'=>'']) !!}</td>
 			<td class="withoutTax"> <span class='form-control form-control-sm txtTotal text-right' data-total>{{ $detail->total }}</span> </td>
 			<td class="withTax"> <span class='form-control form-control-sm txtPriceItem text-right' data-price_item>{{ $detail->price_item }}</span> </td>
 			<td class="text-center form-inline">
