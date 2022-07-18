@@ -65,7 +65,7 @@ class CreateProofsTable extends Migration
             $table->integer('status_id')->unsigned();
             $table->string('status_sunat');
             $table->boolean('send_sunat');
-            $table->text('response_sunat');
+            $table->longText('response_sunat');
             $table->text('response_voided');
             $table->text('ticket_voided');
             $table->string('email');

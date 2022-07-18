@@ -1,11 +1,13 @@
 {!! Form::hidden('my_company', session('my_company')->id, ['id'=>'my_company']) !!}
-{!! Form::hidden('with_tax', 1, ['id'=>'with_tax']) !!}
+{!! Form::hidden('with_tax', 0, ['id'=>'with_tax']) !!}
 {!! Form::hidden('company_id', ((isset($car))? $car->company_id : null), ['id'=>'company_id']) !!}
 {!! Form::hidden('car_id', ((isset($car))? $car->id : null), ['id'=>'car_id']) !!}
 {!! Form::hidden('action', $action, ['id'=>'action']) !!}
+
 @if(!isset($model) and isset($car))
 <input type="hidden" name="last_page" value="{{ route('output_orders.index') }}">
 @endif
+
 <div class="form-row mb-3">
 	<div class="col-sm-2">
 		<div class="custom-control custom-switch">
@@ -20,13 +22,13 @@
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
 	<li class="nav-item" role="presentation">
-		<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Orden</a>
+		<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Inventario</a>
 	</li>
 	<li class="nav-item" role="presentation">
 		<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Imagen</a>
 	</li>
 	<li class="nav-item" role="presentation">
-		<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Otros</a>
+		<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Items</a>
 	</li>
 </ul>
 <div class="tab-content mb-4" id="myTabContent">
@@ -147,6 +149,7 @@
 		</div>
 	</div>
 	<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+		@include('operations.output_orders.partials.details')
 	</div>
 </div>
 

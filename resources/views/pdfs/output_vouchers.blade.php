@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="icon" type="image/jpeg" href="./img/logo_makim_01.jpg" />
+	<link rel="icon" type="image/jpeg" href="./img/logo_metacar.png" />
 
 	<title>Comprobante: {{ $model->sn }}</title>
 	<link rel="stylesheet" href="./css/voucher_pdf.css">
@@ -24,7 +24,7 @@
 		<tr class="header">
 			<td class="col_1">
 				<div>
-					<img src="./img/logo_makim_doc.jpg" alt="" class="img">
+					<img src="./img/logo_metacar.png" alt="" class="img">
 				</div>
 				<div>
 					<div class="company_name">{{ $model->mycompany->company_name }}</div>

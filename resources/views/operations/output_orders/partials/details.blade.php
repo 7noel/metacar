@@ -1,3 +1,14 @@
+<div class="mt-4 mb-4">
+	<div class="form-check form-check-inline">
+		<input class="form-check-input" type="radio" name="tipo_item" id="tipo_item1" value="SERVICIOS" checked>
+		<label class="form-check-label" for="tipo_item1">SERVICIOS</label>
+	</div>
+	<div class="form-check form-check-inline">
+		<input class="form-check-input" type="radio" name="tipo_item" id="tipo_item2" value="REPUESTOS">
+		<label class="form-check-label" for="tipo_item2">REPUESTOS</label>
+	</div>
+	
+</div>
 @php $i=0; @endphp
 <div class="">
 <table class="table table-sm table-responsive">
@@ -19,7 +30,7 @@
 	@if(isset($model->details))
 	@foreach($model->details as $detail)
 		@php $categories=[]; @endphp
-		<tr data-id="{{ $detail->id }}">
+		<tr data-id="{{ $detail->id }}" class="">
 			{!! Form::hidden("details[$i][id]", $detail->id, ['class'=>'detailId','data-detailId'=>'']) !!}
 			{!! Form::hidden("details[$i][product_id]", $detail->product_id, ['class'=>'productId','data-productid'=>'']) !!}
 			{!! Form::hidden("details[$i][unit_id]", $detail->unit_id, ['class'=>'unitId','data-unitid'=>'']) !!}
