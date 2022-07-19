@@ -14,10 +14,10 @@
 		@endif
 	</div>
 	<div class="col-sm-2">
-		{!! Field::select('modelo_id', $modelos, ['empty'=>'Seleccionar', 'label'=>'Modelo', 'class'=>'form-control-sm', 'required']) !!}
+		{!! Field::select('brand_id', $brands, ['empty'=>'Seleccionar', 'label'=>'Marca', 'class'=>'form-control-sm', 'required']) !!}
 	</div>
 	<div class="col-sm-2">
-		{!! Field::text('version', ['label' => 'Versión', 'class'=>'form-control-sm text-uppercase']) !!}
+		{!! Field::select('modelo_id', $modelos, ['empty'=>'Seleccionar', 'label'=>'Modelo', 'class'=>'form-control-sm', 'required']) !!}
 	</div>
 	<div class="col-sm-2">
 		{!! Field::select('body', $bodies, ['empty'=>'Seleccionar', 'label'=>'Tipo', 'class'=>'form-control-sm', 'required']) !!}

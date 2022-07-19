@@ -162,7 +162,7 @@ class OrdersController extends Controller {
 		// \PDF::setOptions(['isPhpEnabled' => true]);
 		$pdf = \PDF::loadView('pdfs.inventory', compact('model', 'cuentas'));
 		//$pdf = \PDF::loadView('pdfs.order_pdf', compact('model'));
-		return $pdf->stream();
+		return $pdf->stream('Inventario '. $model->sn.".pdf");
 	}
 	/**
 	 * Envía Correo al generar cotización
@@ -183,7 +183,11 @@ class OrdersController extends Controller {
 		// \PDF::setOptions(['isPhpEnabled' => true]);
 		$pdf = \PDF::loadView('pdfs.'.$model->order_type, compact('model', 'cuentas'));
 		//$pdf = \PDF::loadView('pdfs.order_pdf', compact('model'));
-		return $pdf->stream();
+		$name = 'Pre-Liquidación ';
+		if ($model->order_type == 'output_quotes') {
+			$name = 'Presupuesto ';
+		}
+		return $pdf->stream($name.' '. $model->sn.".pdf");
 	}
 	/**
 	 * Envía Correo al generar cotización

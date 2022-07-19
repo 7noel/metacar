@@ -63,4 +63,10 @@ class BrandsController extends Controller {
 		$modelos = $this->modeloRepo->modelosByWarehouse($warehouse_id);
 		return \Response::json($modelos);
 	}
+
+	public function ajaxModelos($brand_id)
+	{
+		$modelos = $this->modeloRepo->modelosByBrand($brand_id);
+		return \Response::json($modelos);
+	}
 }

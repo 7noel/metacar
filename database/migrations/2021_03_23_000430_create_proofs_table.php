@@ -66,6 +66,8 @@ class CreateProofsTable extends Migration
             $table->string('status_sunat');
             $table->boolean('send_sunat');
             $table->longText('response_sunat');
+            $table->text('response_summary');
+            $table->text('status_summary');
             $table->text('response_voided');
             $table->text('ticket_voided');
             $table->string('email');

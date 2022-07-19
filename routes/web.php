@@ -38,6 +38,8 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('verified'
 Route::get('/finances/companies/register', 'Finances\CompanyController@register')->name('companies.register');
 
 // Route::get('/home', 'HomeController@index');
+Route::get('listarModelos/{brand_id}', ['as' => 'ajaxmodelos', 'uses' => 'Operations\BrandsController@ajaxModelos']);
+
 Route::get('listarProvincias/{departamento}', ['as' => 'ajaxprovincias', 'uses' => 'Admin\UbigeosController@ajaxProvincias']);
 Route::get('listarDistritos/{departamento}/{provincia}', ['as' => 'ajaxdistritos','uses' => 'Admin\UbigeosController@ajaxDistritos']);
 
@@ -82,6 +84,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'permissions'], 'namespa
 Route::group(['prefix'=>'finances', 'middleware'=>['auth', 'permissions'], 'namespace'=>'Finances'], function(){
 	Route::resource('banks','BanksController');
 	Route::get('payments/by_voucher/{proof_id}', ['as' => 'payments.by_voucher', 'uses' => 'PaymentsController@by_voucher']);
+	Route::get('output_vouchers/anular/{proof_id}', ['as' => 'proofs.anular', 'uses' => 'ProofsController@destroy']);
 	Route::resource('payments','PaymentsController');
 	Route::resource('exchanges','ExchangesController');
 	Route::resource('companies','CompanyController');

@@ -68,7 +68,6 @@ class ProofRepo extends BaseRepo{
 		}
 		// dd(explode('.', \Request::route()->getName())[0]);
 		$data = $this->prepareData($data);
-		// dd($data);
 		$model = parent::save($data, $id);
 		if (isset($data['order_id']) and isset($data['action']) and $data['action']=='generar') {
 			$ot = Order::where('id', $data['order_id'])->update(['proof_id' => $model->id, 'invoiced_at' => date('Y-m-d H:i:s'), 'status' => 'CERR']);
@@ -98,6 +97,19 @@ class ProofRepo extends BaseRepo{
 			}
 			$model->response_sunat = $respuesta;
 			$model->save();
+
+			if (substr($model->series,0,1)=='B') {
+				// Generar Resumen
+				$response_summary = $this->generarResumen($model, $r);
+				$r_s = json_decode($response_summary);
+				$model->response_summary = $response_summary;
+				$model->save();
+
+				// Consultar Resumen
+				$status_summary = $this->consultarResumen($r_s);
+				$model->status_summary = $status_summary;
+				$model->save();
+			}
 		}
 		return $model;
 	}
@@ -105,7 +117,7 @@ class ProofRepo extends BaseRepo{
 	public function getNextNumber($document_type_id, $my_company = 1)
 	{
 		$doc = Table::where('id', $document_type_id)->where('my_company', $my_company)->first();
-		$last = Proof::where('my_company', $my_company)->where('document_type_id', $document_type_id)->where('series', $doc->name)->orderBy('number', 'desc')->first();
+		$last = Proof::where('my_company', $my_company)->where('document_type_id', $document_type_id)->where('series', $doc->name)->orderByRaw('CONVERT(number, SIGNED) desc')->first();
 		if ($last) {
 			return ['id' => $doc->id, 'series' => $doc->name, 'number'=> ($last->number + 1)];
 		} else {
@@ -293,6 +305,28 @@ class ProofRepo extends BaseRepo{
 		return $respuesta;
 	}
 
+	public function generarResumen($model, $r)
+	{
+		$data = array(
+			"fecha_de_emision_de_documentos" => $model->issued_at,
+			"codigo_tipo_proceso" => "1",
+		);
+		$url = 'summaries';
+		$respuesta = $this->send($data, $url);
+		return $respuesta;
+	}
+
+	public function consultarResumen($r_s)
+	{
+		$data = array(
+			"external_id" => $r_s->data->external_id,
+			"ticket" => $r_s->data->ticket,
+		);
+		$url = 'summaries/status';
+		$respuesta = $this->send($data, $url);
+		return $respuesta;
+	}
+
 	public function generarAnulacion($model, $r)
 	{
 		$data = array(
@@ -305,9 +339,10 @@ class ProofRepo extends BaseRepo{
 		if (substr($model->series,0,1)=='F') {
 			$url = 'voided';
 		} elseif (substr($model->series,0,1)=='B') {
-			$data['codigo_tipo_proceso'] = 3;
+			$data["codigo_tipo_proceso"] = "3";
 			$url = 'summaries';
 		}
+		//dd($data);
 		
 		$respuesta = $this->send($data, $url);
 		return $respuesta;
@@ -452,7 +487,6 @@ class ProofRepo extends BaseRepo{
 	public function send($data, $slug)
 	{
 		$data_json = json_encode($data);
-		// dd($data_json);
 		$ruta = env('FACT_RUTA').$slug;
 		$token = env('FACT_TOKEN');
 
@@ -492,16 +526,15 @@ class ProofRepo extends BaseRepo{
 		} else {
 			$model->status_sunat = 'PANUL';
 			$r = json_decode($model->response_sunat);
-			if (isset($r->success) and $r->success==true) {
+			if (isset($r->success) and $r->success == true) {
 				$r_v = json_decode($model->response_voided);
 
-				if (isset($r_v->success) and $r_v->success==true) {
+				if (isset($r_v->success) and $r_v->success == true) {
 					$t_v = json_decode($model->ticket_voided);
-
-					if (!isset($t_v->success) or $t_v->success==false) {
+					if (!isset($t_v->success) or $t_v->success == false) {
 						$model->ticket_voided = $this->consultarAnulacion($model, $r_v);
 						$t_v = json_decode($model->ticket_voided);
-						if (isset($t_v->success) and $t_v->success==true) {
+						if (isset($t_v->success) and $t_v->success == true) {
 							$model->canceled_at = date('Y-m-d H:i:s');
 							$model->status_sunat = 'ANUL';
 						}					
@@ -511,10 +544,11 @@ class ProofRepo extends BaseRepo{
 				} else {
 					$model->response_voided = $this->generarAnulacion($model, $r);
 					$r_v = json_decode($model->response_voided);
-					if (isset($r_v->success) and $r_v->success==true) {
+						// dd($r_v);
+					if (isset($r_v->success) and $r_v->success == true) {
 						$model->ticket_voided = $this->consultarAnulacion($model, $r_v);
 						$t_v = json_decode($model->ticket_voided);
-						if (isset($t_v->success) and $t_v->success==true) {
+						if (isset($t_v->success) and $t_v->success == true) {
 							$model->status_sunat = 'ANUL';
 						}
 					} else {
@@ -527,7 +561,6 @@ class ProofRepo extends BaseRepo{
 		}
 		
 		
-		// dd($r);
 		$model->save();
 		Order::where('order_type', 'output_orders')->where('proof_id', $model->id)->update(['status'=>'APROB', 'proof_id'=>0, 'invoiced_at'=>NULL]);
 		return $model;

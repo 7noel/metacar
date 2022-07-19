@@ -384,13 +384,18 @@ $(document).ready(function () {
     $('#country').change(function(){
         changeCountry()
     });
-    //carga departamentos
+    //carga provincias
     $('#departamento').change(function(){
         cargaProvincias()
     });
-    //carga provincias
+    //carga distritos
     $('#provincia').change(function(){
         cargaDistritos()
+    })
+
+    //carga modelos
+    $('#brand_id').change(function(){
+        cargaModelos()
     })
 
     $(document).on('change', '.text-uppercase', function (e) {
@@ -827,6 +832,25 @@ function cargaDistritos(){
             $dis.append("<option value=''>Seleccionar</option>");
             $.each(data, function (index, DistritoObj) {
                 $dis.append("<option value='"+DistritoObj.code+"'>"+DistritoObj.distrito+"</option>")
+            })
+        })
+
+    }
+}
+
+/*cargar modelos*/
+function cargaModelos(){
+    var $marca = $('#brand_id')
+    var $modelos=$('#modelo_id')
+    var page = "/listarModelos/" + $marca.val()
+    if ($marca == '') {
+        $modelos.empty("")
+    } else {
+        $.get(page, function(data){
+            $modelos.empty()
+            $modelos.append("<option value=''>Seleccionar</option>");
+            $.each(data, function (index, ModeloObj) {
+                $modelos.append("<option value='"+ModeloObj.id+"'>"+ModeloObj.name+"</option>")
             })
         })
 
