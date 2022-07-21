@@ -9,15 +9,15 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     <style>
-.paint-canvas {
-  border: 1px black solid;
-  display: block;
-  margin: 1rem;
-}
+        .paint-canvas {
+          border: 1px black solid;
+          display: block;
+          margin: 1rem;
+        }
 
-.color-picker {
-  margin: 1rem 1rem 0 1rem;
-}
+        .color-picker {
+          margin: 1rem 1rem 0 1rem;
+        }
     </style>
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -185,6 +185,10 @@
     </div>
     <script>
 $(document).ready(function () {
+    categorias = `<option value="REPUESTOS">REPUESTOS</option>`
+    @foreach($menu->categorias() as $id => $cat)
+        categorias += `<option value="{{ $id }}">{{ $cat }}</option>`
+    @endforeach
     $("#btn-image-load").click(function (e) {
         $("#image_base64").val(document.querySelector("#canvas").toDataURL('image/jpeg').replace(/^data:image\/jpeg;base64,/, ""))
     })
@@ -632,7 +636,7 @@ function renderTemplateRowProduct (data) {
             <input class="Total" data-total1="" name="${prefix}[${items}][total]" type="hidden">
             <input class="PriceItem" data-price_item1="" name="${prefix}[${items}][price_item]" type="hidden">
             <td width="100px">
-                <select class="form-control form-control-sm categoria" data-categoria="" name="${prefix}[${items}][categoria]"><option value="LUBRICANTES">LUBRICANTES</option><option value="TERCEROS">TERCEROS</option><option value="PLANCHADO Y PINTURA">PLANCHADO Y PINTURA</option><option value="MANO DE OBRA">MANO DE OBRA</option><option value="REPUESTOS">REPUESTOS</option><option value="MATERIALES DE CONSUMO">MATERIALES DE CONSUMO</option></select>
+                <select class="form-control form-control-sm categoria" data-categoria="" name="${prefix}[${items}][categoria]">${categorias}</select>
             </td>
             <td width="100px"><input class="form-control form-control-sm txtProduct" data-product="" required="required" name="${prefix}[${items}][txtProduct]" type="text"></td>
             <td width="100px"><input class="form-control form-control-sm txtCantidad text-right" data-cantidad="" name="${prefix}[${items}][quantity]" type="text"></td>
@@ -824,7 +828,7 @@ function cargaDistritos(){
     var $pro=$('#provincia')
     var $dis=$('#ubigeo_code')
     var page = "/listarDistritos/" + $dep.val() + "/" + $pro.val()
-    if ($pro=='') {
+    if ($pro.val() == '') {
         $dis.empty("")
     } else {
         $.get(page, function(data){
@@ -843,7 +847,7 @@ function cargaModelos(){
     var $marca = $('#brand_id')
     var $modelos=$('#modelo_id')
     var page = "/listarModelos/" + $marca.val()
-    if ($marca == '') {
+    if ($marca.val() == '') {
         $modelos.empty("")
     } else {
         $.get(page, function(data){

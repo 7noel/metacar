@@ -7,10 +7,17 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Modules\Finances\CompanyRepo;
+use App\Modules\Base\TableRepo;
 
 class MenuController extends Controller
 {
     protected $repo;
+
+    public function categorias()
+    {
+        $tableRepo = new TableRepo;
+        return $tableRepo->getListCategories('sub_categories');
+    }
 
     public function links()
     {

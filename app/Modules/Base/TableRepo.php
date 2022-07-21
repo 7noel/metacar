@@ -33,6 +33,13 @@ class TableRepo extends BaseRepo{
 		return Table::where('type', $type)->orderBy($campo,'ASC')->pluck($campo, $id)->toArray();
 	}
 
+	public function getListCategories($type='sub_categories', $campo='name', $id='id')
+	{
+		//dd(session('my_company'));
+		// return Table::where('my_company', session('my_company')->id)->where('type', $type)->orderBy($campo,'ASC')->pluck($campo, $id)->toArray();
+		return Table::where('type', $type)->where('relation_id', 17)->orderBy($campo,'ASC')->pluck($campo, $id)->toArray();
+	}
+
 	public function getListTypeByGroup($type, $group, $campo='name', $id='id')
 	{
 		return Table::where('relation_id', $group)->where('type', $type)->orderBy($campo,'ASC')->pluck($campo, $id)->toArray();
