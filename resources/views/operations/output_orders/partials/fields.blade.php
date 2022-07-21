@@ -30,6 +30,9 @@
 	<li class="nav-item" role="presentation">
 		<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Items</a>
 	</li>
+	<li class="nav-item" role="presentation">
+		<a class="nav-link" id="flota-tab" data-toggle="tab" href="#flota" role="tab" aria-controls="contact" aria-selected="false">Flota</a>
+	</li>
 </ul>
 <div class="tab-content mb-4" id="myTabContent">
 	<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -45,7 +48,7 @@
 			@if(isset($quote->id))
 			<div class="col-md-1 col-sm-2">
 				{!! Form::hidden('order_id', $quote->id, ['id'=>'order_id']) !!}
-				{!! Form::label('quote_sn', 'Cotiz') !!}
+				{!! Form::label('quote_sn', 'Pres.') !!}
 				{!! Form::text('quote_sn', $quote->sn, ['class'=>'form-control-sm form-control-plaintext text-center', 'readonly']) !!}
 			</div>
 			@endif
@@ -119,7 +122,7 @@
 			<div class="col-sm-3">
 			@foreach (config('options.inventory.col_1') as $label)
 				<div class="custom-control custom-switch">
-					<input type="checkbox" class="custom-control-input" id="{{$label}}" name="inventory[{{$label}}]" {{((isset($model->inventory[$label]) and $model->inventory[$label]==true))?'checked':''}}>
+					<input type="checkbox" class="custom-control-input" id="{{$label}}" name="inventory[{{$label}}]" {{ ((isset($model->inventory[$label]) and $model->inventory[$label]==true))?'checked':'' }}>
 					<label class="custom-control-label" for="{{$label}}">{{ $label }}</label>
 				</div>
 			@endforeach
@@ -147,6 +150,9 @@
 		<div id="my-image-editor" width="600" height="300">
 			<canvas class="js-paint paint-canvas" id="canvas"></canvas>
 		</div>
+	</div>
+	<div class="tab-pane fade" id="flota" role="tabpanel" aria-labelledby="flota-tab">
+		@include('operations.output_orders.partials.flota')
 	</div>
 	<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 		@include('operations.output_orders.partials.details')

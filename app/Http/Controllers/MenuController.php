@@ -81,7 +81,7 @@ class MenuController extends Controller
             ],
             'Taller'=>[
                 ['name' => 'Citas', 'route' => 'appointments.index'],
-                ['name' => 'Cotizaciones', 'route' => 'output_quotes.index'],
+                ['name' => 'Presupuestos', 'route' => 'output_quotes.index'],
                 ['name' => 'Ordenes', 'route' => 'output_orders.index'],
                 ['name' => 'Facturación', 'route' => 'output_vouchers.index'],
                 ['name' => 'Marcas', 'route' => 'brands.index', 'div' => '1'],
