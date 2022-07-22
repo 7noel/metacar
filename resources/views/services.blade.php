@@ -33,7 +33,7 @@
 					<h2>RECEPCION</h2>
 
 						<input type="file" accept="image/*" capture="camera" onchange="loadFile(event)">
-						<img id="output"/>
+						<img id="output"/ width="90%">
 
 
 				</div>
