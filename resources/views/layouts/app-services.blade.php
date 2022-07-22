@@ -176,57 +176,65 @@
     <script>
 $(document).ready(function () {
 
-    var localstream, canvas, video, cxt;
+(function() {
 
-    function turnOnCamera() {
-        canvas = document.getElementById("canvas");
-        cxt = canvas.getContext("2d");
-        video = document.getElementById("video");
+  var streaming = false,
+      video        = document.querySelector('#video'),
+      canvas       = document.querySelector('#canvas'),
+      photo        = document.querySelector('#photo'),
+      startbutton  = document.querySelector('#startbutton'),
+      width = 320,
+      height = 0;
 
-        if(!navigator.getUserMedia){
-            navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-        }
-        if(!window.URL) {
-            window.URL = window.webkitURL;
-        }
+  navigator.getMedia = ( navigator.getUserMedia ||
+                         navigator.webkitGetUserMedia ||
+                         navigator.mozGetUserMedia ||
+                         navigator.msGetUserMedia);
 
-        if (navigator.getUserMedia) {
-            navigator.getUserMedia({"video" : true, "audio": false
-            }, function(stream) {
-                try {
-                    localstream = stream;
-                    video.srcObject = stream;
-                    video.play();
-                } catch (error) {
-                    video.srcObject = null;
-                }
-            }, function(err){
-                swal("Error", err, "error");
-            });
-        } else {
-            swal("Mensaje", "User Media No Disponible" , "error");
-            return;
-        }
+  navigator.getMedia(
+    {
+      video: true,
+      audio: false
+    },
+    function(stream) {
+      if (navigator.mozGetUserMedia) {
+        video.mozSrcObject = stream;
+      } else {
+        var vendorURL = window.URL || window.webkitURL;
+        video.src = vendorURL.createObjectURL(stream);
+      }
+      video.play();
+    },
+    function(err) {
+      console.log("An error occured! " + err);
     }
+  );
 
-    function turnOffCamera() {
-        video.pause();
-        video.srcObject = null;
-        localstream.getTracks()[0].stop();
+  video.addEventListener('canplay', function(ev){
+    if (!streaming) {
+      height = video.videoHeight / (video.videoWidth/width);
+      video.setAttribute('width', width);
+      video.setAttribute('height', height);
+      canvas.setAttribute('width', width);
+      canvas.setAttribute('height', height);
+      streaming = true;
     }
+  }, false);
 
-    $("#radiotfoto").click(function() {
-        $("#subirfoto").addClass("none");
-        $("#video").removeClass("none");
-        turnOnCamera();
-        document.getElementById("subirfoto").value = null;
-    });
+  function takepicture() {
+    canvas.width = width;
+    canvas.height = height;
+    canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+    var data = canvas.toDataURL('image/png');
+    photo.setAttribute('src', data);
+  }
 
-    $("#radiosfoto").click(function() {
-        $("#subirfoto").removeClass("none");
-        $("#video").addClass("none");
-        turnOffCamera();
-    });
+  startbutton.addEventListener('click', function(ev){
+      takepicture();
+    ev.preventDefault();
+  }, false);
+
+})();
 
 
 
