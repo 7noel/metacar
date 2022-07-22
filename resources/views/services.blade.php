@@ -32,10 +32,7 @@
 				<div class="tab-pane fade show active" id="recepcion" role="tabpanel" aria-labelledby="recepcion-tab">
 					<h2>RECEPCION</h2>
 
-						<video id="video"></video>
-<button id="startbutton">Take photo</button>
-<canvas id="canvas"></canvas>
-<img src="http://placekitten.com/g/320/261" id="photo" alt="photo">
+						<input type="file" capture="camera">
 
 
 				</div>
