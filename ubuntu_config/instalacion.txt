@@ -40,6 +40,8 @@ cd /var/www/metacar
 sudo git init
 sudo git remote add origin https://github.com/7noel/metacar.git
 sudo git pull origin master
+git reset --hard origin/master
+
 # para sobreescribir archivos
 sudo git reset --hard origin/master
 sudo composer install
