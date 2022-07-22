@@ -19,7 +19,7 @@
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{ route('output_quotes.index') }}" class="card-title text-dark">Cotizaciones
+                        <a href="{{ route('output_quotes.index') }}" class="card-title text-dark">Presupuestos
                         <img src="/img/cotizar.png" class="card-img-top"></a>
                     </div>
                 </div>
