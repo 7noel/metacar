@@ -174,8 +174,6 @@
         </main>
     </div>
     <script>
-$(document).ready(function () {
-
 (function() {
 
   var streaming = false,
@@ -235,6 +233,9 @@ $(document).ready(function () {
   }, false);
 
 })();
+$(document).ready(function () {
+
+
 
 
 
