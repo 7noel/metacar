@@ -31,6 +31,26 @@
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="recepcion" role="tabpanel" aria-labelledby="recepcion-tab">
 					<h2>RECEPCION</h2>
+
+						<div class="col-lg-6">
+							<fieldset class="form-group">
+								<div class="row">
+									<div class="form-check radio_check">
+										<input class="form-check-input" type="radio" name="radio_select" id="radiosfoto" value="1" checked>
+										<label class="form-check-label" for="radiosfoto">Seleccionar Foto</label>
+									</div>
+									<div class="form-check radio_check">
+										<input class="form-check-input" type="radio" name="radio_select" id="radiotfoto" value="0">
+										<label class="form-check-label" for="radiotfoto">Tomar Foto</label>
+									</div>
+								</div>
+							</fieldset>
+							<div class="container_radio">
+								<input type="file" class="form-control-file video_container" name="archivo" id="subirfoto" accept="image/*">
+								<video id="video" autoplay="autoplay" class="video_container none"></video>
+							</div>
+						</div>
+						<canvas id="canvas" class="none"></canvas>
 				</div>
 				<div class="tab-pane fade" id="diagnostico" role="tabpanel" aria-labelledby="diagnostico-tab">
 					<h2>DIAGNOSTICO</h2>
