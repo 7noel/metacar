@@ -54,4 +54,9 @@ class HomeController extends Controller
                                 ]
         ];
     }
+
+    public function index2()
+    {
+        return view('services');
+    }
 }
