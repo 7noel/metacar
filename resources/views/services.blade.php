@@ -32,7 +32,7 @@
 				<div class="tab-pane fade show active" id="recepcion" role="tabpanel" aria-labelledby="recepcion-tab">
 					<h2>RECEPCION</h2>
 
-						<input type="file" capture="camera">
+						<input type="file" accept="image/*" capture="camera" id="imgInp">
 
 
 				</div>
