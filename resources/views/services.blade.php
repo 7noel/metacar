@@ -146,9 +146,8 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
 
+		<div class="container">
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -170,6 +169,11 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+</div>
+
+	</div>
+</div>
+
 
 
 @endsection

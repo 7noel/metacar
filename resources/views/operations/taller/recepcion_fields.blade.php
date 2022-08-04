@@ -100,6 +100,7 @@
 </div>
 
 <div class="form-row">
+<div class="container">
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner">
 		</div>
@@ -113,6 +114,7 @@
 		</a>
 	</div>
 	
+</div>
 </div>
 
 <div class="form-row">
