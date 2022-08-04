@@ -30,7 +30,7 @@
 			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="recepcion" role="tabpanel" aria-labelledby="recepcion-tab">
-					<h3>RECEPCION <button type="button" class="btn btn-primary btn-sm btn-circle">{!! $icons['add'] !!}</button></h3>
+					<h3>RECEPCIÓN <a href="{{ route('recepcion.create') }}" type="button" class="btn btn-primary btn-sm btn-circle">{!! $icons['add'] !!}</a></h3>
 					<div class="row">
 						@for ($i = 0; $i < 5; $i++)
 						<div class="col-sm-6 col-md-4">

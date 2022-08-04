@@ -159,6 +159,7 @@ Route::group(['prefix'=>'operations', 'middleware'=>['auth', 'permissions'], 'na
 	Route::get('orders/print/{id}', ['as' => 'print_order','uses' => 'OrdersController@print']);
 	Route::get('orders/inventory/{id}', ['as' => 'print_inventory','uses' => 'OrdersController@printInventory']);
 	Route::get('orders/createByCompany/{company_id}', ['as' => 'create_order_by_company','uses' => 'OrdersController@createByCompany']);
+	Route::get('recepcion_crear', ['as' => 'recepcion.create', 'uses' => 'OrdersController@recepcion_crear']);
 });
 
 Route::group(['prefix'=>'logistics', 'middleware'=>['auth', 'permissions'], 'namespace'=>'Logistics'], function(){

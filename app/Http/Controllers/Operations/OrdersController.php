@@ -227,4 +227,16 @@ class OrdersController extends Controller {
 		$car = $this->carRepo->findOrFail($car_id);
 		return view('partials.create', compact('car', 'payment_conditions', 'sellers', 'repairmens', 'my_companies', 'bs', 'bs_shipper', 'action'));
 	}
+
+	public function recepcion_crear()
+	{
+		$action = "create";
+		$my_companies = $this->companyRepo->getListMyCompany();
+		$payment_conditions = $this->paymentConditionRepo->getList();
+		$sellers = $this->companyRepo->getListSellers();
+		$repairmens = $this->companyRepo->getListRepairmens();
+		$bs = ['' => 'Seleccionar'];
+		$bs_shipper = ['' => 'Seleccionar'];
+		return view('operations.taller.recepcion_crear', compact('payment_conditions', 'sellers', 'repairmens', 'my_companies', 'bs', 'bs_shipper', 'action'));
+	}
 }
