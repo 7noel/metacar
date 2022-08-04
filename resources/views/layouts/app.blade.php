@@ -196,6 +196,7 @@ $(document).ready(function () {
     $("#btn-image-load").click(function (e) {
         $("#image_base64").val(document.querySelector("#canvas").toDataURL('image/jpeg').replace(/^data:image\/jpeg;base64,/, ""))
     })
+
     $(".pagar-venta").click(function(e){
         console.log($(this).data('id'))
         m_id = $(this).data('id')
@@ -487,12 +488,22 @@ $(document).ready(function () {
 
     })
 })
-function loadFile (event) {
-    var output = document.getElementById('output')
-    output.src = URL.createObjectURL(event.target.files[0])
-    output.onload = function() {
-        URL.revokeObjectURL(output.src) // free memory
-    }
+
+function loadFile (event, carousel_id) {
+
+    imgs = document.getElementsByClassName("carousel-item").length
+    imgnext = imgs + 1
+    img_div = `<div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="d-block w-100" id=${imgnext} src="${event.target.files[0]}">
+        </div>
+    </div>`
+    $(`#${carousel_id}`).append(img_div)
+    // var output = document.getElementById('output')
+    // output.src = URL.createObjectURL()
+    // output.onload = function() {
+    //     URL.revokeObjectURL(output.src) // free memory
+    // }
 }
 
 function calcTotal () {
@@ -779,6 +790,7 @@ function getDataPadron (doc, type) {
                 $('#paternal_surname').val(data.apellidoPaterno)
                 $('#maternal_surname').val(data.apellidoMaterno)
                 $('#name').val(data.nombres)
+                $('#company_name').val(`${data.apellidoPaterno} ${data.apellidoMaterno} ${data.nombres}`)
             }
             //console.log(data)
         }

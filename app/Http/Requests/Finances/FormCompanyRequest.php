@@ -67,7 +67,6 @@ class FormCompanyRequest extends Request {
 				'paternal_surname'=>'required_if:id_type,1,4,7,A',
 				'address'=>'required',
 				'ubigeo_code'=>'required_if:country,PE',
-				'email'=>'email',
 			],
 			'shippers' => [
 				'id_type'=>['required', Rule::in(array_keys(config('options.client_doc')))],
