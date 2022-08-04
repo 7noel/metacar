@@ -35,7 +35,7 @@ Route::get('/', 'HomeController@index');
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
-Route::get('/servicios', 'HomeController@index2')->name('home');
+Route::get('/servicios', 'HomeController@index2')->name('home2');
 Route::get('/finances/companies/register', 'Finances\CompanyController@register')->name('companies.register');
 
 // Route::get('/home', 'HomeController@index');

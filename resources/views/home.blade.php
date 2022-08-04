@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-sm-12">
             <div class="card-group">
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{ route('clients.index') }}" class="card-title text-dark">Clientes
+                        <a href="{{ route('home2') }}" class="card-title text-dark">SERVICIOS
                         <img src="/img/clientes.png" class="card-img-top"></a>
                     </div>
                 </div>

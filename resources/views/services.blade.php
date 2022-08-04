@@ -1,4 +1,4 @@
-@extends('layouts.app-services')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -30,49 +30,23 @@
 			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="recepcion" role="tabpanel" aria-labelledby="recepcion-tab">
-					<h3>RECEPCION <button type="button" class="btn btn-primary btn-sm">{!! $icons['add'] !!}</button></h3>
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">HONDA PILOT ABC-123 <button type="button" class="btn btn-info btn-sm">{!! $icons['edit'] !!}</button> <button type="button" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-arrow-right"></i></button></h5>
-    <h6 class="card-subtitle mb-2 text-muted">HUILLCA HUAMANI NOEL</h6>
-    <p class="card-text">Cliente en recepción (hace unos segundos)</p>
-  </div>
-</div>
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">HONDA PILOT ABC-123 <button type="button" class="btn btn-info btn-sm">{!! $icons['edit'] !!}</button> <button type="button" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-arrow-right"></i></button></h5>
-    <h6 class="card-subtitle mb-2 text-muted">HUILLCA HUAMANI NOEL</h6>
-    <p class="card-text">Cliente en recepción (hace unos segundos)</p>
-  </div>
-</div>
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">HONDA PILOT ABC-123 <button type="button" class="btn btn-info btn-sm">{!! $icons['edit'] !!}</button> <button type="button" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-arrow-right"></i></button></h5>
-    <h6 class="card-subtitle mb-2 text-muted">HUILLCA HUAMANI NOEL</h6>
-    <p class="card-text">Cliente en recepción (hace unos segundos)</p>
-  </div>
-</div>
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">HONDA PILOT ABC-123 <button type="button" class="btn btn-info btn-sm">{!! $icons['edit'] !!}</button> <button type="button" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-arrow-right"></i></button></h5>
-    <h6 class="card-subtitle mb-2 text-muted">HUILLCA HUAMANI NOEL</h6>
-    <p class="card-text">Cliente en recepción (hace unos segundos)</p>
-  </div>
-</div>
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">HONDA PILOT ABC-123 <button type="button" class="btn btn-info btn-sm">{!! $icons['edit'] !!}</button> <button type="button" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-arrow-right"></i></button></h5>
-    <h6 class="card-subtitle mb-2 text-muted">HUILLCA HUAMANI NOEL</h6>
-    <p class="card-text">Cliente en recepción (hace unos segundos)</p>
-  </div>
-</div>
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">HONDA PILOT ABC-123 <button type="button" class="btn btn-info btn-sm">{!! $icons['edit'] !!}</button> <button type="button" class="btn btn-info btn-sm"><i class="fa-solid fa-circle-arrow-right"></i></button></h5>
-    <h6 class="card-subtitle mb-2 text-muted">HUILLCA HUAMANI NOEL</h6>
-    <p class="card-text">Cliente en recepción (hace unos segundos)</p>
-  </div>
-</div>
+					<h3>RECEPCION <button type="button" class="btn btn-primary btn-sm btn-circle">{!! $icons['add'] !!}</button></h3>
+					<div class="row">
+						@for ($i = 0; $i < 5; $i++)
+						<div class="col-sm-6 col-md-4">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">HONDA PILOT ABC-123
+										<button type="button" class="btn btn-info btn-sm btn-circle">{!! $icons['edit'] !!}</button>
+										<button type="button" class="btn btn-info btn-sm btn-circle"><i class="fa-solid fa-arrow-right"></i></button>
+									</h5>
+									<h6 class="card-subtitle mb-2 text-muted">HUILLCA HUAMANI NOEL</h6>
+									<p class="card-text">Cliente en recepción (hace unos segundos)</p>
+								</div>
+							</div>
+						</div>
+						@endfor
+					</div>
 
 						<input type="file" accept="image/*" capture="camera" onchange="loadFile(event)">
 						<img id="output"/ width="90%">
