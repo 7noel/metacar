@@ -492,14 +492,15 @@ $(document).ready(function () {
 function loadFile (event, carousel_id) {
 
     imgs = document.getElementsByClassName("carousel-item").length
-    imgnext = imgs + 1
     activo = ''
     if (imgs==0) {activo = 'active'}
     img_div = `<div class="carousel-item ${activo}">
-        <img class="d-block w-100" id="recepcion_${imgnext}" src="" heigth='300px'>
+        <img class="d-block w-100" id="recepcion_${imgs}" src="" heigth='300px'>
     </div>`
+    input_img = `<input type="file" class="form-control-file" accept="image/*" capture="camera" onchange="loadFile(event, 'carouselRecepcion')">`
+    $(`#${carousel_id}Fotos`).prepend(input_img)
     $(`#${carousel_id}`).append(img_div)
-    var output = document.getElementById(`recepcion_${imgnext}`)
+    var output = document.getElementById(`recepcion_${imgs}`)
     output.src = URL.createObjectURL(event.target.files[0])
     output.onload = function() {
         URL.revokeObjectURL(output.src) // free memory
