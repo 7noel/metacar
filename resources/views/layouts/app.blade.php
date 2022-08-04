@@ -495,15 +495,15 @@ function loadFile (event, carousel_id) {
     imgnext = imgs + 1
     img_div = `<div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="d-block w-100" id=${imgnext} src="${event.target.files[0]}">
+            <img class="d-block w-100" id="recepcion_${imgnext}" src="">
         </div>
     </div>`
     $(`#${carousel_id}`).append(img_div)
-    // var output = document.getElementById('output')
-    // output.src = URL.createObjectURL()
-    // output.onload = function() {
-    //     URL.revokeObjectURL(output.src) // free memory
-    // }
+    var output = document.getElementById(`recepcion_${imgnext}`)
+    output.src = URL.createObjectURL(event.target.files[0])
+    output.onload = function() {
+        URL.revokeObjectURL(output.src) // free memory
+    }
 }
 
 function calcTotal () {
