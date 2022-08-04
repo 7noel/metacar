@@ -188,6 +188,13 @@
     </div>
     <script>
 $(document).ready(function () {
+  var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+  };
     categorias = `<option value="REPUESTOS">REPUESTOS</option>`
     @foreach($menu->categorias() as $id => $cat)
         categorias += `<option value="{{ $id }}">{{ $cat }}</option>`
