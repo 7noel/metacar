@@ -104,7 +104,8 @@
 </div>
 <img id="output"/ width="90%">
 <div id="carouselRecepcion" class="carousel slide" data-ride="carousel">
-
+	<div class="carousel-inner">
+	</div>
 	<a class="carousel-control-prev" href="#carouselRecepcion" role="button" data-slide="prev">
 		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 		<span class="sr-only">Previous</span>

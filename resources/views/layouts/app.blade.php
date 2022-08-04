@@ -493,10 +493,10 @@ function loadFile (event, carousel_id) {
 
     imgs = document.getElementsByClassName("carousel-item").length
     imgnext = imgs + 1
-    img_div = `<div class="carousel-inner">
-        <div class="carousel-item active">
-            <img class="d-block w-100" id="recepcion_${imgnext}" src="">
-        </div>
+    activo = ''
+    if (imgs==0) {activo = 'active'}
+    img_div = `<div class="carousel-item ${activo}">
+        <img class="d-block w-100" id="recepcion_${imgnext}" src="" heigth='300px'>
     </div>`
     $(`#${carousel_id}`).append(img_div)
     var output = document.getElementById(`recepcion_${imgnext}`)
