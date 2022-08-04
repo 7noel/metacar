@@ -187,13 +187,7 @@
         </main>
     </div>
     <script>
-  var loadFile = function(event) {
-    var output = document.getElementById('output');
-    output.src = URL.createObjectURL(event.target.files[0]);
-    output.onload = function() {
-      URL.revokeObjectURL(output.src) // free memory
-    }
-  };
+
 $(document).ready(function () {
     categorias = `<option value="REPUESTOS">REPUESTOS</option>`
     @foreach($menu->categorias() as $id => $cat)
@@ -493,6 +487,13 @@ $(document).ready(function () {
 
     })
 })
+function loadFile (event) {
+    var output = document.getElementById('output')
+    output.src = URL.createObjectURL(event.target.files[0])
+    output.onload = function() {
+        URL.revokeObjectURL(output.src) // free memory
+    }
+}
 
 function calcTotal () {
     var with_tax = false
