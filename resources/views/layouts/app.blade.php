@@ -488,14 +488,14 @@ $(document).ready(function () {
 
     })
 })
-
+$('.carousel').carousel('pause')
 function loadFile (event, carousel_id) {
 
     imgs = document.getElementsByClassName("carousel-item").length
     activo = ''
     if (imgs==0) {activo = 'active'}
     img_div = `<div class="carousel-item ${activo}">
-        <img class="d-block w-100" id="recepcion_${imgs}" src="" heigth='300px'>
+        <img class="d-block w-100" id="recepcion_${imgs}" src="">
     </div>`
     input_img = `<input type="file" class="form-control-file" accept="image/*" capture="camera" onchange="loadFile(event, 'carouselRecepcion')">`
     $(`#${carousel_id}Fotos`).prepend(input_img)
