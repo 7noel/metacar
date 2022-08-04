@@ -99,7 +99,15 @@
 	</div>
 </div>
 
-<div class="container">
+<div class="form-row">
+	<div class=" col-sm-12">FOTOS</div>
+	<div class="col-sm-12" id="carouselExampleControlsFotos">
+		<input type="file" class="form-control-file" accept="image/*" capture="camera" onchange="loadFile(event, 'carouselExampleControls')">
+		
+	</div>
+</div>
+
+<div class="container mt-3 mb-3">
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner">
 		</div>
@@ -113,12 +121,4 @@
 		</button>
 	</div>
 	
-</div>
-
-<div class="form-row">
-	<div class=" col-sm-12">FOTOS</div>
-	<div class="col-sm-12" id="carouselExampleControlsFotos">
-		<input type="file" class="form-control-file" accept="image/*" capture="camera" onchange="loadFile(event, 'carouselExampleControls')">
-		
-	</div>
 </div>
