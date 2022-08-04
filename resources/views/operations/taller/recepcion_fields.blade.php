@@ -99,19 +99,21 @@
 	</div>
 </div>
 
-<div class="">
+<div class="form-row">
 	<input type="file" class="form-control-file" accept="image/*" capture="camera" onchange="loadFile(event, 'carouselRecepcion')">
 </div>
-<img id="output"/ width="90%">
-<div id="carouselRecepcion" class="carousel slide" data-ride="carousel">
-	<div class="carousel-inner">
+<div class="form-row">
+	<div id="carouselRecepcion" class="carousel slide" data-ride="carousel">
+		<div class="carousel-inner">
+		</div>
+		<a class="carousel-control-prev" href="#carouselRecepcion" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="carousel-control-next" href="#carouselRecepcion" role="button" data-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
 	</div>
-	<a class="carousel-control-prev" href="#carouselRecepcion" role="button" data-slide="prev">
-		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		<span class="sr-only">Previous</span>
-	</a>
-	<a class="carousel-control-next" href="#carouselRecepcion" role="button" data-slide="next">
-		<span class="carousel-control-next-icon" aria-hidden="true"></span>
-		<span class="sr-only">Next</span>
-	</a>
+	
 </div>
