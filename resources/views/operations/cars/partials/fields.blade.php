@@ -61,7 +61,7 @@
 		{!! Field::text('contact_mobile', ((!isset($model) and isset($client))? $client->mobile :null), ['label' => 'Celular', 'class'=>'form-control-sm text-uppercase']) !!}
 	</div>
 </div>
-@if(isset($client->id))
+@if(isset($client->id) or !isset($model))
 <div class="form-row mb-3">
 	<div class="col-sm-2">
 		<div class="custom-control custom-switch">

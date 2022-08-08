@@ -239,4 +239,52 @@ class OrdersController extends Controller {
 		$bs_shipper = ['' => 'Seleccionar'];
 		return view('operations.taller.recepcion_crear', compact('payment_conditions', 'sellers', 'repairmens', 'my_companies', 'bs', 'bs_shipper', 'action'));
 	}
+
+	public function recepcion()
+	{
+		$models = $this->repo->ordersRecepcion();
+		return view('services', compact('models'));
+	}
+
+	public function recepcion_edit($id)
+	{
+		$action = "edit";
+		$model = $this->repo->findOrFail($id);
+		// dd(collect($model->custom_details)->sortBy('quantity'));
+		$quote = $model->quote;
+		$my_companies = $this->companyRepo->getListMyCompany();
+		$payment_conditions = $this->paymentConditionRepo->getList();
+		$sellers = $this->companyRepo->getListSellers();
+		$repairmens = $this->companyRepo->getListRepairmens();
+		$bs = $model->company->branches->pluck('company_name', 'id')->toArray();
+		$bs_shipper = ($model->shipper_id > 0) ? $model->shipper->branches->pluck('company_name', 'id')->prepend('Seleccionar', '') : [''=>'Seleccionar'] ;
+		return view('operations.taller.recepcion_edit', compact('model', 'payment_conditions', 'sellers', 'repairmens', 'my_companies', 'bs', 'bs_shipper', 'quote', 'action'));
+	}
+	public function recepcionByCar($car_id)
+	{
+		$action = "create";
+		$my_companies = $this->companyRepo->getListMyCompany();
+		$payment_conditions = $this->paymentConditionRepo->getList();
+		$sellers = $this->companyRepo->getListSellers();
+		$repairmens = $this->companyRepo->getListRepairmens();
+		$bs = ['' => 'Seleccionar'];
+		$bs_shipper = ['' => 'Seleccionar'];
+		$car = $this->carRepo->findOrFail($car_id);
+		return view('operations.taller.recepcion_crear', compact('car', 'payment_conditions', 'sellers', 'repairmens', 'my_companies', 'bs', 'bs_shipper', 'action'));
+	}
+	public function changeStatusOrder($id)
+	{
+		$model = $this->repo->findOrFail($id);
+		return view('operations.taller.change_status_order', compact('model'));
+	}
+	public function updateStatus($id)
+	{
+		$data = request()->all();
+		$model = $this->repo->changeStatus($data, $id);
+		return redirect()->route('home2');
+	}
+	public function orderClient($id)
+	{
+		dd('Holaaaaaaa');
+	}
 }

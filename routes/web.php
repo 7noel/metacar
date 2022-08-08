@@ -35,7 +35,8 @@ Route::get('/', 'HomeController@index');
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
-Route::get('/servicios', 'HomeController@index2')->name('home2');
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+Route::get('/servicios', 'Operations\OrdersController@recepcion')->name('home2');
 Route::get('/finances/companies/register', 'Finances\CompanyController@register')->name('companies.register');
 
 // Route::get('/home', 'HomeController@index');
@@ -160,6 +161,11 @@ Route::group(['prefix'=>'operations', 'middleware'=>['auth', 'permissions'], 'na
 	Route::get('orders/inventory/{id}', ['as' => 'print_inventory','uses' => 'OrdersController@printInventory']);
 	Route::get('orders/createByCompany/{company_id}', ['as' => 'create_order_by_company','uses' => 'OrdersController@createByCompany']);
 	Route::get('recepcion_crear', ['as' => 'recepcion.create', 'uses' => 'OrdersController@recepcion_crear']);
+	Route::get('recepcion_edit/{id}', ['as' => 'recepcion.edit', 'uses' => 'OrdersController@recepcion_edit']);
+	Route::get('recepcion_by_car/{car_id}', ['as' => 'recepcion_by_car', 'uses' => 'OrdersController@recepcionByCar']);
+	Route::get('change_status_order/{id}', ['as' => 'change_status_order', 'uses' => 'OrdersController@changeStatusOrder']);
+	Route::put('update_status/{id}', ['as' => 'update_status_order', 'uses' => 'OrdersController@updateStatus']);
+	Route::get('orden_cliente/{id}', ['as' => 'order_client', 'uses' => 'OrdersController@orderClient']);
 });
 
 Route::group(['prefix'=>'logistics', 'middleware'=>['auth', 'permissions'], 'namespace'=>'Logistics'], function(){

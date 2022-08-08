@@ -105,6 +105,7 @@ class ComposerServiceProvider extends ServiceProvider
             'invoice' => '<i class="fas fa-file-invoice"></i>',
             'close' => '<i class="fas fa-times"></i>',
             'car' => '<i class="fas fa-car"></i>',
+            'whatsapp' => '<i class="fa-brands fa-whatsapp"></i>',
         ];
     }
 

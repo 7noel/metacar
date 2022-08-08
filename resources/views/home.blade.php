@@ -7,7 +7,7 @@
             <div class="card-group">
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{ route('home2') }}" class="card-title text-dark">SERVICIOS
+                        <a href="{{ route('home2') }}" class="card-title text-dark">RECEPCIÓN
                         <img src="/img/clientes.png" class="card-img-top"></a>
                     </div>
                 </div>

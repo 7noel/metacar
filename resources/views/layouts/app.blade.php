@@ -37,6 +37,9 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Condensed&family=Roboto&family=Roboto+Condensed&display=swap" rel="stylesheet">
     <style>
+        .disable-click {
+            pointer-events: none;
+        }
         .btn-circle{
             border-radius: 60px;
         }
@@ -488,18 +491,34 @@ $(document).ready(function () {
 
     })
 })
+function eliminarElementos(id_1, id_2) {
+    $(`#${id_2}`).remove()
+    $(`#${id_1}`).remove()
+    $els = $(`.carousel-item`).parent().find('.active')
+    console.log($els)
+    if (!$els[0]) {
+        $(`.carousel-item`).first().addClass('active')
+    }
+}
 function loadFile (event, carousel_id) {
-
-    imgs = document.getElementsByClassName("carousel-item").length
+    $(`.input-files`).first().addClass('disable-click')
+    $(`.input-files`).first().parent().find('.input-group-append').removeClass('d-none')
+    imgs = $('#fotos_recepcion_items').val()
+    $('#fotos_recepcion_items').val(1 + imgs*1)
     activo = ''
-    if (imgs==0) {activo = 'active'}
-    img_div = `<div class="carousel-item ${activo}">
-        <img class="d-block w-100" id="recepcion_${imgs}" src="">
+    if (!$(`.carousel-item`)[0]) {activo = 'active'}
+    img_div = `<div class="carousel-item ${activo}" id="carousel_element_${imgs}">
+        <img class="d-block w-100" id="recepcion_img_${imgs}" src="">
     </div>`
-    input_img = `<input type="file" class="form-control-file" accept="image/*" capture="camera" onchange="loadFile(event, '${carousel_id}')">`
+    input_img = `<div class="input-group" id='recepcion_div_${1 + imgs*1}'>
+        <input type="file" name="inventory[photos][${1 + imgs*1}]" class="form-control form-control-sm input-files" accept="image/*" capture="camera" onchange="loadFile(event, '${carousel_id}')">
+        <div class="input-group-append d-none">
+            <button class="btn-delete btn btn-outline-danger btn-sm" type="button" title="Eliminar" onclick="eliminarElementos('carousel_element_${1 + imgs*1}', 'recepcion_div_${1 + imgs*1}')"><i class="far fa-trash-alt"></i></button>
+        </div>
+    </div>`
     $(`#${carousel_id}Fotos`).prepend(input_img)
     $(`#${carousel_id} .carousel-inner`).append(img_div)
-    var output = document.getElementById(`recepcion_${imgs}`)
+    var output = document.getElementById(`recepcion_img_${imgs}`)
     output.src = URL.createObjectURL(event.target.files[0])
     output.onload = function() {
         URL.revokeObjectURL(output.src) // free memory

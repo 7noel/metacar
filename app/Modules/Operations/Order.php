@@ -11,10 +11,16 @@ class Order extends Model implements Auditable
 	use \OwenIt\Auditing\Auditable;
 	use SoftDeletes;
 
-	protected $fillable = ['company_id', 'order_type', 'car_id', 'placa', 'kilometraje', 'type_service', 'preventivo', 'branch_id', 'shipper_id', 'shipper_branch_id', 'my_company', 'document_type_id', 'payment_condition_id', 'currency_id', 'seller_id', 'repairman_id', 'attention', 'matter', 'approved_at', 'checked_at', 'invoiced_at', 'sent_at', 'canceled_at', 'gross_value', 'discount', 'discount_items', 'subtotal', 'tax', 'total', 'amortization', 'exchange', 'exchange_sunat', 'comment', 'status', 'delivery_period', 'installation_period', 'delivery_place', 'offer_period', 'mov', 'type_op', 'proof_id', 'user_id', 'sn', 'order_id', 'inventory', 'custom_details'];
+	protected $fillable = ['company_id', 'order_type', 'car_id', 'placa', 'kilometraje', 'type_service', 'preventivo', 'branch_id', 'shipper_id', 'shipper_branch_id', 'my_company', 'document_type_id', 'payment_condition_id', 'currency_id', 'seller_id', 'repairman_id', 'attention', 'matter', 'diag_at', 'repu_at', 'repar_at', 'approved_at', 'checked_at', 'invoiced_at', 'sent_at', 'canceled_at', 'gross_value', 'discount', 'discount_items', 'subtotal', 'tax', 'total', 'amortization', 'exchange', 'exchange_sunat', 'comment', 'status', 'delivery_period', 'installation_period', 'delivery_place', 'offer_period', 'mov', 'type_op', 'proof_id', 'user_id', 'sn', 'order_id', 'inventory', 'custom_details'];
 	protected $casts = [
-		'inventory' => 'array',
+		'inventory' => 'object',
 		'custom_details' => 'object',
+		'diag_at' => 'datetime',
+		'repu_at' => 'datetime',
+		'approved_at' => 'datetime',
+		'repar_at' => 'datetime',
+		'checked_at' => 'datetime',
+		'send_at' => 'datetime',
 	];
 	public function scopeName($query, $name){
 		if (trim($name) != "") {

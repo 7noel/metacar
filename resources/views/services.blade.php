@@ -3,67 +3,139 @@
 @section('content')
 <div class="container">
 
+@php
+$models_1 = $models->where('status', 'PEND');
+$models_2 = $models->where('status', 'DIAG');
+$models_3 = $models->where('status', 'REPU');
+$models_4 = $models->where('status', 'APROB');
+$models_5 = $models->where('status', 'REPAR');
+$models_6 = $models->where('status', 'CONTR');
+$models_7 = $models->where('status', 'ENTR');
+
+@endphp
 	<div class="row">
 		<div class="col-md-12">
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item" role="presentation">
-					<button class="nav-link active" id="recepcion-tab" data-toggle="tab" data-target="#recepcion" type="button" role="tab" aria-controls="recepcion" aria-selected="true">{!! $icons['car'] !!} <br> <span class="badge badge-light">9</span> </button>
+					<button class="nav-link active" id="recepcion-tab" data-toggle="tab" data-target="#recepcion" type="button" role="tab" aria-controls="recepcion" aria-selected="true">{!! $icons['car'] !!} <br> <span class="badge badge-light">{{ $models_1->count() }}</span> </button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="diagnostico-tab" data-toggle="tab" data-target="#diagnostico" type="button" role="tab" aria-controls="diagnostico" aria-selected="false">{!! $icons['view'] !!} <br> <span class="badge badge-light">9</span> </button>
+					<button class="nav-link" id="diagnostico-tab" data-toggle="tab" data-target="#diagnostico" type="button" role="tab" aria-controls="diagnostico" aria-selected="false">{!! $icons['view'] !!} <br> <span class="badge badge-light">{{ $models_2->count() }}</span> </button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="repuestos-tab" data-toggle="tab" data-target="#repuestos" type="button" role="tab" aria-controls="repuestos" aria-selected="false"><i class="fas fa-box"></i> <br> <span class="badge badge-light">9</span> </button>
+					<button class="nav-link" id="repuestos-tab" data-toggle="tab" data-target="#repuestos" type="button" role="tab" aria-controls="repuestos" aria-selected="false"><i class="fas fa-box"></i> <br> <span class="badge badge-light">{{ $models_3->count() }}</span> </button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="aprobacion-tab" data-toggle="tab" data-target="#aprobacion" type="button" role="tab" aria-controls="aprobacion" aria-selected="false"><i class="fas fa-check"></i> <br> <span class="badge badge-light">9</span> </button>
+					<button class="nav-link" id="aprobacion-tab" data-toggle="tab" data-target="#aprobacion" type="button" role="tab" aria-controls="aprobacion" aria-selected="false"><i class="fas fa-check"></i> <br> <span class="badge badge-light">{{ $models_4->count() }}</span> </button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="reparacion-tab" data-toggle="tab" data-target="#reparacion" type="button" role="tab" aria-controls="reparacion" aria-selected="false"><i class="fas fa-wrench"></i> <br> <span class="badge badge-light">9</span> </button>
+					<button class="nav-link" id="reparacion-tab" data-toggle="tab" data-target="#reparacion" type="button" role="tab" aria-controls="reparacion" aria-selected="false"><i class="fas fa-wrench"></i> <br> <span class="badge badge-light">{{ $models_5->count() }}</span> </button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="control-tab" data-toggle="tab" data-target="#control" type="button" role="tab" aria-controls="control" aria-selected="false"><i class="fa-regular fa-circle-check"></i> <br> <span class="badge badge-light">9</span> </button>
+					<button class="nav-link" id="control-tab" data-toggle="tab" data-target="#control" type="button" role="tab" aria-controls="control" aria-selected="false"><i class="fa-regular fa-circle-check"></i> <br> <span class="badge badge-light">{{ $models_6->count() }}</span> </button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="entrega-tab" data-toggle="tab" data-target="#entrega" type="button" role="tab" aria-controls="entrega" aria-selected="false"><i class="fas fa-door-open"></i> <br> <span class="badge badge-light">9</span> </button>
+					<button class="nav-link" id="entrega-tab" data-toggle="tab" data-target="#entrega" type="button" role="tab" aria-controls="entrega" aria-selected="false"><i class="fas fa-door-open"></i> <br> <span class="badge badge-light">{{ $models_7->count() }}</span> </button>
 				</li>
 			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="recepcion" role="tabpanel" aria-labelledby="recepcion-tab">
 					<h3>RECEPCIÓN <a href="{{ route('recepcion.create') }}" type="button" class="btn btn-primary btn-sm btn-circle">{!! $icons['add'] !!}</a></h3>
 					<div class="row">
-						@for ($i = 0; $i < 5; $i++)
+						@foreach ($models_1 as $model)
 						<div class="col-sm-6 col-md-4">
 							<div class="card">
 								<div class="card-body">
-									<h5 class="card-title">HONDA PILOT ABC-123
-										<button type="button" class="btn btn-info btn-sm btn-circle">{!! $icons['edit'] !!}</button>
-										<button type="button" class="btn btn-info btn-sm btn-circle"><i class="fa-solid fa-arrow-right"></i></button>
+									<h5 class="card-title">#{{ $model->sn }} - {{ $model->car->modelo->brand->name }} {{ $model->car->modelo->name }} {{ $model->car->placa }}
+										<a href="{{ route( 'recepcion.edit' , $model) }}" type="button" class="btn btn-outline-info btn-sm btn-circle">{!! $icons['edit'] !!}</a>
+										<a href="{{ route( 'change_status_order' , $model) }}" type="button" class="btn btn-outline-info btn-sm btn-circle"><i class="fa-solid fa-arrow-right"></i></a>
 									</h5>
-									<h6 class="card-subtitle mb-2 text-muted">HUILLCA HUAMANI NOEL</h6>
-									<p class="card-text">Cliente en recepción (hace unos segundos)</p>
+									<h6 class="card-subtitle mb-2 text-muted">{{ $model->company->company_name }}</h6>
+									<p class="card-text">{{ $model->created_at->diffForHumans() }}</p>
 								</div>
 							</div>
 						</div>
-						@endfor
+						@endforeach
 					</div>
-
-						<input type="file" accept="image/*" capture="camera" onchange="loadFile(event)">
-						<img id="output"/ width="90%">
 
 
 				</div>
 				<div class="tab-pane fade" id="diagnostico" role="tabpanel" aria-labelledby="diagnostico-tab">
-					<h2>DIAGNOSTICO</h2>
+					<h3>DIAGNÓSTICO</h3>
+					<div class="row">
+						@foreach ($models_2 as $model)
+						<div class="col-sm-6 col-md-4">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">#{{ $model->sn }} - {{ $model->car->modelo->brand->name }} {{ $model->car->modelo->name }} {{ $model->car->placa }} 
+										<a href="https://wa.me/+51{{ $model->company->mobile }}?text={{ route( 'order_client' , $model) }}" target="_blank" class="btn btn-outline-info btn-sm btn-circle">{!! $icons['whatsapp'] !!}</a>
+										<a href="{{ route( 'recepcion.edit' , $model) }}" class="btn btn-outline-info btn-sm btn-circle">{!! $icons['edit'] !!}</a>
+										<a href="{{ route( 'change_status_order' , $model) }}" class="btn btn-outline-info btn-sm btn-circle"><i class="fa-solid fa-arrow-right"></i></a>
+									</h5>
+									<h6 class="card-subtitle mb-2 text-muted">{{ $model->company->company_name }}</h6>
+									<p class="card-text">{{ $model->diag_at->diffForHumans() }}</p>
+								</div>
+							</div>
+						</div>
+						@endforeach
+					</div>
 				</div>
 				<div class="tab-pane fade" id="repuestos" role="tabpanel" aria-labelledby="repuestos-tab">
-					<h2>REPUESTOS</h2>
+					<h3>REPUESTOS</h3>
+					<div class="row">
+						@foreach ($models_3 as $model)
+						<div class="col-sm-6 col-md-4">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">#{{ $model->sn }} - {{ $model->car->modelo->brand->name }} {{ $model->car->modelo->name }} {{ $model->car->placa }}
+										<a href="{{ route( 'recepcion.edit' , $model) }}" type="button" class="btn btn-info btn-sm btn-circle">{!! $icons['edit'] !!}</a>
+										<a href="{{ route( 'change_status_order' , $model) }}" type="button" class="btn btn-info btn-sm btn-circle"><i class="fa-solid fa-arrow-right"></i></a>
+									</h5>
+									<h6 class="card-subtitle mb-2 text-muted">{{ $model->company->company_name }}</h6>
+									<p class="card-text">{{ $model->repu_at->diffForHumans() }}</p>
+								</div>
+							</div>
+						</div>
+						@endforeach
+					</div>
 				</div>
 				<div class="tab-pane fade" id="aprobacion" role="tabpanel" aria-labelledby="aprobacion-tab">
-					<h2>APROBACION</h2>
+					<h3>APROBACION</h3>
+					<div class="row">
+						@foreach ($models_4 as $model)
+						<div class="col-sm-6 col-md-4">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">#{{ $model->sn }} - {{ $model->car->modelo->brand->name }} {{ $model->car->modelo->name }} {{ $model->car->placa }}
+										<a href="{{ route( 'recepcion.edit' , $model) }}" type="button" class="btn btn-info btn-sm btn-circle">{!! $icons['edit'] !!}</a>
+										<a href="{{ route( 'change_status_order' , $model) }}" type="button" class="btn btn-info btn-sm btn-circle"><i class="fa-solid fa-arrow-right"></i></a>
+									</h5>
+									<h6 class="card-subtitle mb-2 text-muted">{{ $model->company->company_name }}</h6>
+									<p class="card-text">{{ $model->approved_at->diffForHumans() }}</p>
+								</div>
+							</div>
+						</div>
+						@endforeach
+					</div>
 				</div>
 				<div class="tab-pane fade" id="reparacion" role="tabpanel" aria-labelledby="reparacion-tab">
-					<h2>REPARACION</h2>
+					<h3>REPARACION</h3>
+					<div class="row">
+						@foreach ($models_5 as $model)
+						<div class="col-sm-6 col-md-4">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">#{{ $model->sn }} - {{ $model->car->modelo->brand->name }} {{ $model->car->modelo->name }} {{ $model->car->placa }}
+										<a href="{{ route( 'recepcion.edit' , $model) }}" type="button" class="btn btn-info btn-sm btn-circle">{!! $icons['edit'] !!}</a>
+										<a href="{{ route( 'change_status_order' , $model) }}" type="button" class="btn btn-info btn-sm btn-circle"><i class="fa-solid fa-arrow-right"></i></a>
+									</h5>
+									<h6 class="card-subtitle mb-2 text-muted">{{ $model->company->company_name }}</h6>
+									<p class="card-text">{{ $model->repar_at->diffForHumans() }}</p>
+								</div>
+							</div>
+						</div>
+						@endforeach
+					</div>
 <div class="accordion" id="accordionExample">
   <div class="card">
     <div class="card-header pb-0 pt-0" id="headingOne">
@@ -139,37 +211,45 @@
 </div>
 				</div>
 				<div class="tab-pane fade" id="control" role="tabpanel" aria-labelledby="control-tab">
-					<h2>CONTROL</h2>
+					<h3>CONTROL</h3>
+					<div class="row">
+						@foreach ($models_6 as $model)
+						<div class="col-sm-6 col-md-4">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">#{{ $model->sn }} - {{ $model->car->modelo->brand->name }} {{ $model->car->modelo->name }} {{ $model->car->placa }}
+										<a href="{{ route( 'recepcion.edit' , $model) }}" type="button" class="btn btn-info btn-sm btn-circle">{!! $icons['edit'] !!}</a>
+										<a href="{{ route( 'change_status_order' , $model) }}" type="button" class="btn btn-info btn-sm btn-circle"><i class="fa-solid fa-arrow-right"></i></a>
+									</h5>
+									<h6 class="card-subtitle mb-2 text-muted">{{ $model->company->company_name }}</h6>
+									<p class="card-text">{{ $model->checked_at->diffForHumans() }}</p>
+								</div>
+							</div>
+						</div>
+						@endforeach
+					</div>
 				</div>
 				<div class="tab-pane fade" id="entrega" role="tabpanel" aria-labelledby="entrega-tab">
-					<h2>ENTREGA</h2>
+					<h3>ENTREGA</h3>
+					<div class="row">
+						@foreach ($models_7 as $model)
+						<div class="col-sm-6 col-md-4">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">#{{ $model->sn }} - {{ $model->car->modelo->brand->name }} {{ $model->car->modelo->name }} {{ $model->car->placa }}
+										<a href="{{ route( 'recepcion.edit' , $model) }}" type="button" class="btn btn-info btn-sm btn-circle">{!! $icons['edit'] !!}</a>
+										<a href="{{ route( 'change_status_order' , $model) }}" type="button" class="btn btn-info btn-sm btn-circle"><i class="fa-solid fa-arrow-right"></i></a>
+									</h5>
+									<h6 class="card-subtitle mb-2 text-muted">{{ $model->company->company_name }}</h6>
+									<p class="card-text">{{ $model->send_at->diffForHumans() }}</p>
+								</div>
+							</div>
+						</div>
+						@endforeach
+					</div>
 				</div>
 			</div>
 		</div>
-
-		<div class="container">
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="/img/accord.png" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="/img/call.png" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="/img/logo_metacar.png" class="d-block w-100" alt="...">
-    </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
-</div>
 
 	</div>
 </div>

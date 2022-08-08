@@ -39,7 +39,10 @@ class CreateOrdersTable extends Migration
             $table->string('offer_period');
             $table->bigInteger('seller_id')->unsigned();
             $table->bigInteger('repairman_id')->unsigned();
+            $table->dateTime('diag_at')->nullable();
+            $table->dateTime('repu_at')->nullable();
             $table->dateTime('approved_at')->nullable();
+            $table->dateTime('repar_at')->nullable();
             $table->dateTime('checked_at')->nullable();
             $table->dateTime('invoiced_at')->nullable();
             $table->dateTime('sent_at')->nullable();

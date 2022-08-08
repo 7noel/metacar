@@ -186,6 +186,9 @@ return [
         
         //View Composer for share routes, views and labels
         App\Providers\ComposerServiceProvider::class,
+
+        // Laravel Log Viewer
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
     ],
 
     /*

@@ -224,11 +224,12 @@ abstract class BaseRepo{
 			\Storage::delete($folder.'/'.$nameOld);
 		}
 		$i=1;
-		while (file_exists($public_path.'/storage/'.$name)) {
+		while (file_exists('/storage/'.$name)) {
 			$name = $name."-$i";
 			$i++;
 		}
-		\Storage::disk('local')->put('storage/'.$name,  \File::get($file));
+		\Storage::disk('public')->put($name,  \File::get($file));
+		return $name;
 	}
 
 	public function saveImageBase64($base64, $name)

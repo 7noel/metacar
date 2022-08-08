@@ -19,17 +19,42 @@ class OrderRepo extends BaseRepo{
 	public function getModel(){
 		return new Order;
 	}
+	public function ordersRecepcion()
+	{
+		return $this->model->where('order_type', 'output_orders')->with('car.modelo.brand')->orderBy('created_at', 'desc')->get();
+	}
 	public function findOrFail($id)
 	{
 		return Order::with('details.product', 'details.product.accessories.accessory.sub_category')->findOrFail($id);
 	}
+	public function changeStatus($data, $id=0)
+	{
+		$order_status = ['DIAG' => 'diag_at', 'REPU' => 'repu_at', 'APROB' => 'approved_at', 'REPAR' => 'repar_at', 'CONTR' => 'checked_at', 'ENTR' => 'send_at', 'ANUL' => 'canceled_at', 'CERR' => 'invoiced_at'];
+		$data[$order_status[$data['status']]] = date("Y-m-d H:i:s");
+		// dd($data);
+		$model = $this->model->updateOrCreate(['id' => $id], $data);
+		return $model;
+	}
 	public function save($data, $id=0)
 	{
+		// dd($data{'inventory'});
 		$data['order_type'] = explode('.', \Request::route()->getName())[0];
 		if ($id == 0) {
 			$data['sn'] = $this->getNextNumber($data['order_type'], session('my_company')->id);
 		}
 		$data = $this->prepareData($data);
+		if (isset($data['inventory']['photos'][0])) {
+			$i = 0;
+			foreach ($data['inventory']['photos'] as $key => $photo) {
+				if (is_string($photo)) {
+					$name_files[] = $photo;
+				} else {
+					$name_files[] = $this->saveFile('storage', $photo);
+				}
+				$i++;
+			}
+			$data['inventory']['photos'] = $name_files;
+		}
 		$model = parent::save($data, $id);
 
 		if (isset($data['items']) and $data['items']>0) {
@@ -158,52 +183,54 @@ class OrderRepo extends BaseRepo{
 		} else {
 			$arr_status = config('options.quote_status');
 		}
-		
-		$data['status'] = 'PEND';
-		if (isset($data['checked_at'])) {
-			if ($data['checked_at'] == "on") {
-				$data['checked_at'] = date('Y-m-d H:i:s');
+		// dd($data);
+		if ($data['order_type'] == 'output_orders') {
+			$data['status'] = 'PEND';
+			if (isset($data['checked_at'])) {
+				if ($data['checked_at'] == "on") {
+					$data['checked_at'] = date('Y-m-d H:i:s');
+				}
+				$data['status_id'] = '1';
+				// $data['status'] = config('options.order_status.1');
+			} else {
+				$data['checked_at'] = null;
 			}
-			$data['status_id'] = '1';
-			// $data['status'] = config('options.order_status.1');
-		} else {
-			$data['checked_at'] = null;
-		}
-		if (isset($data['approved_at'])) {
-			if ($data['approved_at'] == "on") {
-				$data['approved_at'] = date('Y-m-d H:i:s');
+			if (isset($data['approved_at'])) {
+				if ($data['approved_at'] == "on") {
+					$data['approved_at'] = date('Y-m-d H:i:s');
+				}
+				$data['status'] = 'APROB';
+				// $data['status'] = config('options.order_status.2');
+			} else {
+				$data['approved_at'] = null;
 			}
-			$data['status'] = 'APROB';
-			// $data['status'] = config('options.order_status.2');
-		} else {
-			$data['approved_at'] = null;
-		}
-		if (isset($data['invoiced_at'])) {
-			if ($data['invoiced_at'] == "on") {
-				$data['invoiced_at'] = date('Y-m-d H:i:s');
+			if (isset($data['invoiced_at'])) {
+				if ($data['invoiced_at'] == "on") {
+					$data['invoiced_at'] = date('Y-m-d H:i:s');
+				}
+				$data['status'] = 'CERR';
+				// $data['status'] = config('options.order_status.3');
+			} else {
+				$data['invoiced_at'] = null;
 			}
-			$data['status'] = 'CERR';
-			// $data['status'] = config('options.order_status.3');
-		} else {
-			$data['invoiced_at'] = null;
-		}
-		if (isset($data['sent_at'])) {
-			if ($data['sent_at'] == "on") {
-				$data['sent_at'] = date('Y-m-d H:i:s');
+			if (isset($data['sent_at'])) {
+				if ($data['sent_at'] == "on") {
+					$data['sent_at'] = date('Y-m-d H:i:s');
+				}
+				$data['status_id'] = '4';
+				// $data['status'] = config('options.order_status.4');
+			} else {
+				$data['sent_at'] = null;
 			}
-			$data['status_id'] = '4';
-			// $data['status'] = config('options.order_status.4');
-		} else {
-			$data['sent_at'] = null;
-		}
-		if (isset($data['canceled_at'])) {
-			if ($data['canceled_at'] == "on") {
-				$data['canceled_at'] = date('Y-m-d H:i:s');
+			if (isset($data['canceled_at'])) {
+				if ($data['canceled_at'] == "on") {
+					$data['canceled_at'] = date('Y-m-d H:i:s');
+				}
+				$data['status_id'] = '5';
+				// $data['status'] = config('options.order_status.5');
+			} else {
+				$data['canceled_at'] = null;
 			}
-			$data['status_id'] = '5';
-			// $data['status'] = config('options.order_status.5');
-		} else {
-			$data['canceled_at'] = null;
 		}
 
 		return $data;

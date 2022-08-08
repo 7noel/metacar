@@ -91,14 +91,14 @@
 					<label for="inventory_combustible">
 						Combustible
 					</label>
-					<input class="" id="inventory_combustible" name="inventory[combustible]" type="range" step='25' value="{{(isset($model->inventory['combustible']))? $model->inventory['combustible']:''}}">
+					<input class="" id="inventory_combustible" name="inventory[combustible]" type="range" step='25' value="{{(isset($model->inventory->combustible))? $model->inventory->combustible:''}}">
 				</div>
 			</div>
 			<div class="col-sm-2">
-				{!! Field::select('inventory[comprobante]', ['FACTURA'=>'FACTURA', 'BOLETA'=>'BOLETA'], (isset($model->inventory['comprobante']) ? $model->inventory['comprobante'] : ''), ['empty'=>'SIN COMPROBANTE', 'label'=>'Comprobante', 'class'=>'form-control-sm']) !!}
+				{!! Field::select('inventory[comprobante]', ['FACTURA'=>'FACTURA', 'BOLETA'=>'BOLETA'], (isset($model->inventory->comprobante) ? $model->inventory->comprobante : ''), ['empty'=>'SIN COMPROBANTE', 'label'=>'Comprobante', 'class'=>'form-control-sm']) !!}
 			</div>
 			<div class="col-sm-2">
-				{!! Field::date('inventory[entrega]', (isset($model->inventory['entrega']) ? $model->inventory['entrega'] : date('Y-m-d')), ['label'=>'F. Entrega', 'class'=>'form-control-sm']) !!}
+				{!! Field::date('inventory[entrega]', (isset($model->inventory->entrega) ? $model->inventory->entrega : date('Y-m-d')), ['label'=>'F. Entrega', 'class'=>'form-control-sm']) !!}
 			</div>
 		</div>
 		
@@ -106,7 +106,7 @@
 			<div class="col-sm-12">
 				<div id="field_inventory_trabajos" class="form-group">
 					<label for="inventory_trabajos">Trabajos</label>
-					<textarea class="form-control form-control-sm" id="inventory_trabajos" rows="3" name="inventory[trabajos]">{{(isset($model->inventory['trabajos']))? trim($model->inventory['trabajos']):''}}</textarea>
+					<textarea class="form-control form-control-sm" id="inventory_trabajos" rows="3" name="inventory[trabajos]">{{(isset($model->inventory->trabajos))? trim($model->inventory->trabajos):''}}</textarea>
 				</div>
 			</div>
 		</div>
@@ -114,7 +114,7 @@
 			<div class="col-sm-12">
 				<div id="field_inventory_observaciones" class="form-group">
 					<label for="inventory_observaciones">Observaciones</label>
-					<textarea class="form-control form-control-sm" id="inventory_observaciones" rows="3" name="inventory[observaciones]">{{(isset($model->inventory['observaciones']))? trim($model->inventory['observaciones']):''}}</textarea>
+					<textarea class="form-control form-control-sm" id="inventory_observaciones" rows="3" name="inventory[observaciones]">{{(isset($model->inventory->observaciones))? trim($model->inventory->observaciones):''}}</textarea>
 				</div>
 			</div>
 		</div>
@@ -122,7 +122,7 @@
 			<div class="col-sm-3">
 			@foreach (config('options.inventory.col_1') as $label)
 				<div class="custom-control custom-switch">
-					<input type="checkbox" class="custom-control-input" id="{{$label}}" name="inventory[{{$label}}]" {{ ((isset($model->inventory[$label]) and $model->inventory[$label]==true))?'checked':'' }}>
+					<input type="checkbox" class="custom-control-input" id="{{$label}}" name="inventory[{{$label}}]" {{ ((isset($model->inventory->$label) and $model->inventory->$label==true))?'checked':'' }}>
 					<label class="custom-control-label" for="{{$label}}">{{ $label }}</label>
 				</div>
 			@endforeach
@@ -130,7 +130,7 @@
 			<div class="col-sm-3">
 			@foreach (config('options.inventory.col_2') as $label)
 				<div class="custom-control custom-switch">
-					<input type="checkbox" class="custom-control-input" id="{{$label}}" name="inventory[{{$label}}]" {{((isset($model->inventory[$label]) and $model->inventory[$label]==true))?'checked':''}}>
+					<input type="checkbox" class="custom-control-input" id="{{$label}}" name="inventory[{{$label}}]" {{((isset($model->inventory->$label) and $model->inventory->$label==true))?'checked':''}}>
 					<label class="custom-control-label" for="{{$label}}">{{ $label }}</label>
 				</div>
 			@endforeach
