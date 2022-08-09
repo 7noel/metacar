@@ -163,6 +163,11 @@ Route::group(['prefix'=>'operations', 'middleware'=>['auth', 'permissions'], 'na
 	Route::get('recepcion_crear', ['as' => 'recepcion.create', 'uses' => 'OrdersController@recepcion_crear']);
 	Route::get('recepcion_edit/{id}', ['as' => 'recepcion.edit', 'uses' => 'OrdersController@recepcion_edit']);
 	Route::get('recepcion_by_car/{car_id}', ['as' => 'recepcion_by_car', 'uses' => 'OrdersController@recepcionByCar']);
+	Route::get('diagnostico/{id}', ['as' => 'diagnostico.edit', 'uses' => 'OrdersController@diagnostico_edit']);
+	Route::get('repuestos/{id}', ['as' => 'repuestos.edit', 'uses' => 'OrdersController@repuestos_edit']);
+	Route::get('aprobacion/{id}', ['as' => 'aprobacion.edit', 'uses' => 'OrdersController@aprobacion_edit']);
+	Route::get('controlcalidad/{id}', ['as' => 'controlcalidad.edit', 'uses' => 'OrdersController@controlcalidad_edit']);
+	Route::get('entrega/{id}', ['as' => 'entrega.edit', 'uses' => 'OrdersController@entrega_edit']);
 	Route::get('change_status_order/{id}', ['as' => 'change_status_order', 'uses' => 'OrdersController@changeStatusOrder']);
 	Route::put('update_status/{id}', ['as' => 'update_status_order', 'uses' => 'OrdersController@updateStatus']);
 	Route::get('orden_cliente/{id}', ['as' => 'order_client', 'uses' => 'OrdersController@orderClient']);

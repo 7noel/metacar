@@ -287,4 +287,34 @@ class OrdersController extends Controller {
 	{
 		dd('Holaaaaaaa');
 	}
+	public function diagnostico_edit($id)
+	{
+		$action = "edit";
+		$model = $this->repo->findOrFail($id);
+		// dd(collect($model->custom_details)->sortBy('quantity'));
+		$quote = $model->quote;
+		$my_companies = $this->companyRepo->getListMyCompany();
+		$payment_conditions = $this->paymentConditionRepo->getList();
+		$sellers = $this->companyRepo->getListSellers();
+		$repairmens = $this->companyRepo->getListRepairmens();
+		$bs = $model->company->branches->pluck('company_name', 'id')->toArray();
+		$bs_shipper = ($model->shipper_id > 0) ? $model->shipper->branches->pluck('company_name', 'id')->prepend('Seleccionar', '') : [''=>'Seleccionar'] ;
+		return view('operations.taller.diagnostico', compact('model', 'payment_conditions', 'sellers', 'repairmens', 'my_companies', 'bs', 'bs_shipper', 'quote', 'action'));
+	}
+	public function repuestos_edit($id)
+	{
+		dd('repuestos_edit');
+	}
+	public function aprobacion_edit($id)
+	{
+		dd('aprobacion_edit');
+	}
+	public function controlcalidad_edit($id)
+	{
+		dd('controlcalidad_edit');
+	}
+	public function entrega_edit($id)
+	{
+		dd('entrega_edit');
+	}
 }
