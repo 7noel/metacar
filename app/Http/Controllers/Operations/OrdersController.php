@@ -283,9 +283,10 @@ class OrdersController extends Controller {
 		$model = $this->repo->changeStatus($data, $id);
 		return redirect()->route('home2');
 	}
-	public function orderClient($id)
+	public function orderClient($slug)
 	{
-		dd('Holaaaaaaa');
+		$model = $this->repo->findBySlug($slug);
+		return view('operations.taller.cliente', compact('model'));
 	}
 	public function diagnostico_edit($id)
 	{

@@ -65,6 +65,7 @@ class CreateOrdersTable extends Migration
             $table->json('inventory');
             $table->json('custom_details');
             $table->bigInteger('my_company')->unsigned();
+            $table->string('slug');
 
             $table->foreign('my_company')->references('id')->on('companies');
             $table->foreign('company_id')->references('id')->on('companies');

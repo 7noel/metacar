@@ -1,9 +1,10 @@
+<h3>DIAGNÓSTICO</h3>
 @php $i=0; @endphp
 <div class="">
 <table class="table table-sm table-responsive">
 	<thead>
 		<tr>
-			<th width="150px">Categoría</th>
+			<th width="150px">Código</th>
 			<th width="300px">Descripción</th>
 			<th width="100px">Cantidad</th>
 			<th class="withTax" width="100px">Precio</th>

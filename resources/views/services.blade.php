@@ -43,10 +43,14 @@ $models_7 = $models->where('status', 'ENTR');
 					<h3>RECEPCIÓN <a href="{{ route('recepcion.create') }}" type="button" class="btn btn-primary btn-sm btn-circle">{!! $icons['add'] !!}</a></h3>
 					<div class="row">
 						@foreach ($models_1 as $model)
+						@php
+						$texto = "Hola Bienvenido a ".env('APP_NAME').". Estamos a punto de ingresar tu vehículo {$model->car->modelo->brand->name} {$model->car->modelo->name} placa: {$model->car->placa}, es necesario aprobar el ingreso al taller en el siguiente link ".route( 'order_client' , $model->slug);
+						@endphp
 						<div class="col-sm-6 col-md-4">
 							<div class="card">
 								<div class="card-body">
 									<h5 class="card-title">#{{ $model->sn }} - {{ $model->car->modelo->brand->name }} {{ $model->car->modelo->name }} {{ $model->car->placa }}
+										<a href="https://wa.me/+51{{ $model->company->mobile }}?text={{ $texto }}" target="_blank" class="btn btn-outline-info btn-sm btn-circle">{!! $icons['whatsapp'] !!}</a>
 										<a href="{{ route( 'recepcion.edit' , $model) }}" type="button" class="btn btn-outline-info btn-sm btn-circle">{!! $icons['edit'] !!}</a>
 										<a href="{{ route( 'change_status_order' , $model) }}" type="button" class="btn btn-outline-info btn-sm btn-circle"><i class="fa-solid fa-arrow-right"></i></a>
 									</h5>
@@ -102,11 +106,14 @@ $models_7 = $models->where('status', 'ENTR');
 					<h3>APROBACION</h3>
 					<div class="row">
 						@foreach ($models_4 as $model)
+						@php
+						$texto = "Hola Bienvenido a {env('APP_NAME')}. Estamos a punto de ingresar tu vehículo {$model->brand->name} placa: {$model->car->placa}, es necesario aprobar el ingreso al taller en el siguiente link {route( 'order_client' , $model->slug)}";
+						@endphp
 						<div class="col-sm-6 col-md-4">
 							<div class="card">
 								<div class="card-body">
 									<h5 class="card-title">#{{ $model->sn }} - {{ $model->car->modelo->brand->name }} {{ $model->car->modelo->name }} {{ $model->car->placa }}
-										<a href="https://wa.me/+51{{ $model->company->mobile }}?text={{ route( 'order_client' , $model) }}" target="_blank" class="btn btn-outline-info btn-sm btn-circle">{!! $icons['whatsapp'] !!}</a>
+										<a href="https://wa.me/+51{{ $model->company->mobile }}?text={{ $texto }}" target="_blank" class="btn btn-outline-info btn-sm btn-circle">{!! $icons['whatsapp'] !!}</a>
 										<a href="{{ route( 'recepcion.edit' , $model) }}" type="button" class="btn btn-info btn-sm btn-circle">{!! $icons['edit'] !!}</a>
 										<a href="{{ route( 'change_status_order' , $model) }}" type="button" class="btn btn-info btn-sm btn-circle"><i class="fa-solid fa-arrow-right"></i></a>
 									</h5>

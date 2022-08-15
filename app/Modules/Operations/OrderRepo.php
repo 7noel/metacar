@@ -23,6 +23,10 @@ class OrderRepo extends BaseRepo{
 	{
 		return $this->model->where('order_type', 'output_orders')->with('car.modelo.brand')->orderBy('created_at', 'desc')->get();
 	}
+	public function findBySlug($slug)
+	{
+		return Order::where('slug', $slug)->firstOrFail();
+	}
 	public function findOrFail($id)
 	{
 		return Order::with('details.product', 'details.product.accessories.accessory.sub_category')->findOrFail($id);

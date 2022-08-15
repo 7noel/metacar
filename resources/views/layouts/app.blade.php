@@ -491,6 +491,16 @@ $(document).ready(function () {
 
     })
 })
+function mostrarOcultarElementos(cadena_mostrar, cadena_ocultar) {
+    var mostrar_ids = cadena_mostrar.split(',')
+    var ocultar_ids = cadena_ocultar.split(',')
+    mostrar_ids.forEach(function (id, key) {
+        $(`#${id}`).removeClass('d-none')
+    })
+    ocultar_ids.forEach(function (id, key) {
+        $(`#${id}`).addClass('d-none')
+    })
+}
 function eliminarElementos(id_1, id_2) {
     $(`#${id_2}`).remove()
     $(`#${id_1}`).remove()

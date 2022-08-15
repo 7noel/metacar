@@ -11,7 +11,7 @@ class Order extends Model implements Auditable
 	use \OwenIt\Auditing\Auditable;
 	use SoftDeletes;
 
-	protected $fillable = ['company_id', 'order_type', 'car_id', 'placa', 'kilometraje', 'type_service', 'preventivo', 'branch_id', 'shipper_id', 'shipper_branch_id', 'my_company', 'document_type_id', 'payment_condition_id', 'currency_id', 'seller_id', 'repairman_id', 'attention', 'matter', 'diag_at', 'repu_at', 'repar_at', 'approved_at', 'checked_at', 'invoiced_at', 'sent_at', 'canceled_at', 'gross_value', 'discount', 'discount_items', 'subtotal', 'tax', 'total', 'amortization', 'exchange', 'exchange_sunat', 'comment', 'status', 'delivery_period', 'installation_period', 'delivery_place', 'offer_period', 'mov', 'type_op', 'proof_id', 'user_id', 'sn', 'order_id', 'inventory', 'custom_details'];
+	protected $fillable = ['company_id', 'order_type', 'car_id', 'placa', 'kilometraje', 'type_service', 'preventivo', 'branch_id', 'shipper_id', 'shipper_branch_id', 'my_company', 'document_type_id', 'payment_condition_id', 'currency_id', 'seller_id', 'repairman_id', 'attention', 'matter', 'diag_at', 'repu_at', 'repar_at', 'approved_at', 'checked_at', 'invoiced_at', 'sent_at', 'canceled_at', 'gross_value', 'discount', 'discount_items', 'subtotal', 'tax', 'total', 'amortization', 'exchange', 'exchange_sunat', 'comment', 'status', 'delivery_period', 'installation_period', 'delivery_place', 'offer_period', 'mov', 'type_op', 'proof_id', 'user_id', 'sn', 'order_id', 'inventory', 'custom_details', 'slug'];
 	protected $casts = [
 		'inventory' => 'object',
 		'custom_details' => 'object',
@@ -22,6 +22,15 @@ class Order extends Model implements Auditable
 		'checked_at' => 'datetime',
 		'send_at' => 'datetime',
 	];
+
+	protected static function boot()
+	{
+		parent::boot();
+		static::creating(function ($order){
+			$order->slug = bin2hex(random_bytes(20));
+		});
+	}
+
 	public function scopeName($query, $name){
 		if (trim($name) != "") {
 			$query->where('number', 'LIKE', "%$name%")->orWhere('created_at', 'LIKE', "%name%");

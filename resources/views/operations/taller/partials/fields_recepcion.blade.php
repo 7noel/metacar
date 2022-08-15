@@ -1,7 +1,15 @@
-{!! Form::hidden('my_company', session('my_company')->id, ['id'=>'my_company']) !!}
+@if(!isset(session('my_company')->id))
+	{!! Form::hidden('my_company', session('my_company')->id, ['id'=>'my_company']) !!}
+@endif
 {!! Form::hidden('with_tax', 0, ['id'=>'with_tax']) !!}
+{!! Form::hidden('custom_details', 1, ['id'=>'custom_details']) !!}
+{!! Form::hidden('categoria', '', ['id'=>'categoria']) !!}
 {!! Form::hidden('company_id', ((isset($car))? $car->company_id : null), ['id'=>'company_id']) !!}
 {!! Form::hidden('car_id', ((isset($car))? $car->id : null), ['id'=>'car_id']) !!}
+{!! Form::hidden('sn', null, ['id'=>'sn']) !!}
+{!! Form::hidden('total', null, ['id'=>'total']) !!}
+{!! Form::hidden('subtotal', null, ['id'=>'subtotal']) !!}
+{!! Form::hidden('tax', null, ['id'=>'tax']) !!}
 {!! Form::hidden('action', $action, ['id'=>'action']) !!}
 
 @if(!isset($model) and isset($car))
@@ -9,7 +17,8 @@
 @endif
 
 <h3>RECEPCIÓN</h3>
-@if(!isset($model))
+
+@if(!isset($model) or (isset($model) and $model->status == 'PEND'))
 <div class="form-row mb-3">
 	<div class="col-sm-2">
 		<a href="{{ route('cars.create') }}" class="btn btn-sm btn-link">[[ Crear Vehículo ]]</a>
@@ -127,7 +136,7 @@
 	</div>
 </div>
 
-<div class="container mt-3 mb-3">
+<div class="container mt-3 mb-3 col-sm-6">
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner">
 			@if(isset($model->inventory->photos))
@@ -253,8 +262,12 @@
 	</div>
 </div>
 
-<div class="form-row">
-	<div class=" col-sm-12 mt-3 font-weight-bold">Evidencia Fotográfica Recepción</div>
+<div class="form-row mb-3">
+	<div class=" col-sm-12 mt-3 font-weight-bold">
+		Evidencia Fotográfica Recepción
+		<button class="btn btn-outline-dark btn-sm" type="button" id="button-mostrar-fotos-recepcion" title="Ver" onclick="mostrarOcultarElementos('button-ocultar-fotos-recepcion,fotos-recepcion', 'button-mostrar-fotos-recepcion')">{!! $icons['view'] !!}</button>
+		<button class="btn btn-outline-dark btn-sm d-none" type="button" id="button-ocultar-fotos-recepcion" title="Mostrar" onclick="mostrarOcultarElementos('button-mostrar-fotos-recepcion', 'button-ocultar-fotos-recepcion,fotos-recepcion')">{!! $icons['view-close'] !!}</button>
+	</div>
 	<div class="col-sm-12" id="carouselExampleControlsFotos">
 		@php $fotos_recepcion_items = 0; @endphp
 		@foreach($model->inventory->photos as $key => $photo)
@@ -264,7 +277,7 @@
 	</div>
 </div>
 
-<div class="container mt-3 mb-3 col-sm-6">
+<div class="container mb-3 col-sm-6 d-none" id="fotos-recepcion">
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner">
 			@if(isset($model->inventory->photos))
@@ -290,5 +303,3 @@
 	</div>
 </div>
 @endif
-
-<H3>DIAGNÓSTICO</H3>

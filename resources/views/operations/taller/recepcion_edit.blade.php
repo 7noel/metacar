@@ -12,7 +12,7 @@
 						@if(Request::url() != URL::previous())
 						<input type="hidden" name="last_page" value="{{ URL::previous() }}">
 						@endif
-						@include('operations.taller.recepcion_fields')
+						@include('operations.taller.partials.fields_recepcion')
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
 								<button type="submit" class="btn btn-outline-success" id="submit">{!! $icons['save'] !!} Guardar</button>

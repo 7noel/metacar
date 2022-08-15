@@ -45,6 +45,8 @@ Route::get('listarModelos/{brand_id}', ['as' => 'ajaxmodelos', 'uses' => 'Operat
 Route::get('listarProvincias/{departamento}', ['as' => 'ajaxprovincias', 'uses' => 'Admin\UbigeosController@ajaxProvincias']);
 Route::get('listarDistritos/{departamento}/{provincia}', ['as' => 'ajaxdistritos','uses' => 'Admin\UbigeosController@ajaxDistritos']);
 
+Route::get('orden_cliente/{slug}', ['as' => 'order_client', 'uses' => 'Operations\OrdersController@orderClient']);
+
 Route::group(['middleware'=>['auth']], function(){
 	Route::get('get_cpe/{id}', ['as' => 'output_vouchers.get_cpe', 'uses' => 'Finances\ProofsController@get_json_cpe']);
 	Route::get('send_cpe', ['as' => 'output_vouchers.send_email_cpe', 'uses' => 'Finances\ProofsController@send_email_cpe']);
@@ -170,7 +172,6 @@ Route::group(['prefix'=>'operations', 'middleware'=>['auth', 'permissions'], 'na
 	Route::get('entrega/{id}', ['as' => 'entrega.edit', 'uses' => 'OrdersController@entrega_edit']);
 	Route::get('change_status_order/{id}', ['as' => 'change_status_order', 'uses' => 'OrdersController@changeStatusOrder']);
 	Route::put('update_status/{id}', ['as' => 'update_status_order', 'uses' => 'OrdersController@updateStatus']);
-	Route::get('orden_cliente/{id}', ['as' => 'order_client', 'uses' => 'OrdersController@orderClient']);
 });
 
 Route::group(['prefix'=>'logistics', 'middleware'=>['auth', 'permissions'], 'namespace'=>'Logistics'], function(){
