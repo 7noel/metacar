@@ -1,4 +1,4 @@
-@if(!isset(session('my_company')->id))
+@if(isset(session('my_company')->id))
 	{!! Form::hidden('my_company', session('my_company')->id, ['id'=>'my_company']) !!}
 @endif
 {!! Form::hidden('with_tax', 0, ['id'=>'with_tax']) !!}
@@ -18,7 +18,7 @@
 
 <h3>RECEPCIÓN</h3>
 
-@if(!isset($model) or (isset($model) and $model->status == 'PEND'))
+@if((!isset($model) or (isset($model) and $model->status == 'PEND')) and $action != 'cliente')
 <div class="form-row mb-3">
 	<div class="col-sm-2">
 		<a href="{{ route('cars.create') }}" class="btn btn-sm btn-link">[[ Crear Vehículo ]]</a>
@@ -222,25 +222,27 @@
 <div class="form-row">
 	<div class="col-sm-12">
 		<div id="field_inventory_trabajos" class="form-group">
+			<input class="" id="inventory_trabajos" name="inventory[trabajos]" type="hidden" value="{{(isset($model->inventory->trabajos))? $model->inventory->trabajos:''}}">
 			<label for="inventory_trabajos" class="font-weight-bold">Trabajos</label>
-			<textarea class="form-control form-control-sm" id="inventory_trabajos" rows="3" name="inventory[trabajos]" readonly>{{(isset($model->inventory->trabajos))? trim($model->inventory->trabajos):''}}</textarea>
+			<p>{{(isset($model->inventory->trabajos))? trim($model->inventory->trabajos):'-'}}</p>
 		</div>
 	</div>
-</div>
-<div class="form-row">
 	<div class="col-sm-12">
 		<div id="field_inventory_observaciones" class="form-group">
+			<input class="" id="inventory_observaciones" name="inventory[observaciones]" type="hidden" value="{{(isset($model->inventory->observaciones))? $model->inventory->observaciones:''}}">
+			<input type="hidden" value="on">
 			<label for="inventory_observaciones" class="font-weight-bold">Observaciones</label>
-			<textarea class="form-control form-control-sm" id="inventory_observaciones" rows="3" name="inventory[observaciones]" readonly>{{(isset($model->inventory->observaciones))? trim($model->inventory->observaciones):''}}</textarea>
+			<p>{{(isset($model->inventory->observaciones))? trim($model->inventory->observaciones):'-'}}</p>
 		</div>
 	</div>
 </div>
+
 <div class="form-row">
 	<div class="col-sm-3">
 	@foreach (config('options.inventory.col_1') as $label)
 		<div class="">
 			@if( isset($model->inventory->$label) and $model->inventory->$label==true )
-			<input type="hidden" value="on">
+			<input type="hidden" name="inventory[{{$label}}]" value="on">
 			<label class="" for="{{$label}}">{!! $icons['check'] !!}  {{ $label }}</label>
 			@else
 			<label class="" for="{{$label}}">{!! $icons['close'] !!}  {{ $label }}</label>
@@ -252,7 +254,7 @@
 	@foreach (config('options.inventory.col_2') as $label)
 		<div class="">
 			@if( isset($model->inventory->$label) and $model->inventory->$label==true )
-			<input type="hidden" value="on">
+			<input type="hidden" name="inventory[{{$label}}]" value="on">
 			<label class="" for="{{$label}}">{!! $icons['check'] !!}  {{ $label }}</label>
 			@else
 			<label class="" for="{{$label}}">{!! $icons['close'] !!}  {{ $label }}</label>

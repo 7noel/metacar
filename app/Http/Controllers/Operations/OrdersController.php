@@ -285,8 +285,9 @@ class OrdersController extends Controller {
 	}
 	public function orderClient($slug)
 	{
+		$action = 'cliente';
 		$model = $this->repo->findBySlug($slug);
-		return view('operations.taller.cliente', compact('model'));
+		return view('operations.taller.cliente', compact('model', 'action'));
 	}
 	public function diagnostico_edit($id)
 	{
