@@ -280,7 +280,31 @@ class OrdersController extends Controller {
 	public function updateStatus($id)
 	{
 		$data = request()->all();
+		// dd($data['status']);
+		if ($data['action']=='cliente') {
+			$mensaje['DIAG'][0] = 'Lamentamos que no estés de acuerdo con tu orden de trabajo, ahora tu asesor encargado se comunicará contigo, recuerda que estamos para servirte';
+			$mensaje['DIAG'][1] = 'Ahora tu orden de trabajo avanzará a la fase de diagnóstico, recibirás una nueva notificación cuando el diagnóstico se haya completado';
+			$mensaje['REPAR'][0] = 'Lamentamos que nuestro diagnóstico no haya sido oportuno, ahora tu asesor encargado se comunicará contigo, recuerda que estamos para servirte';
+			$mensaje['REPAR'][1] = 'Diagnóstico aprobado con éxito, ahora nuestro equipo continuará con el proceso';
+
+			$msj = $mensaje[$data['status']][$data['aprobacion']];
+
+			if ($data['aprobacion']==1) {
+				$icon = '<i class="fa-solid fa-thumbs-up"></i>';
+				$title = '¡Bien!';
+				$data['status_msj'] = 'Aprobado por Cliente';
+				$data['status_aprobacion'] = 1;
+			} else {
+				$icon = '<i class="fa-solid fa-face-frown"></i>';
+				$title = '¡Oh no!';
+				$data['status_msj'] = 'Rechazado por Cliente';
+				$data['status_aprobacion'] = 0;
+			}
+		}
 		$model = $this->repo->changeStatus($data, $id);
+		if ($data['action']=='cliente') {
+			return view('operations.taller.cliente_respuesta', compact('icon', 'msj', 'title'));
+		}
 		return redirect()->route('home2');
 	}
 	public function orderClient($slug)

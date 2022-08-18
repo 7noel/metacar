@@ -4,6 +4,7 @@
 <div class="container">
 
 @php
+
 $models_1 = $models->where('status', 'PEND');
 $models_2 = $models->where('status', 'DIAG');
 $models_3 = $models->where('status', 'REPU');
@@ -44,7 +45,15 @@ $models_7 = $models->where('status', 'ENTR');
 					<div class="row">
 						@foreach ($models_1 as $model)
 						@php
-						$texto = "Hola Bienvenido a ".env('APP_NAME').". Estamos a punto de ingresar tu vehículo {$model->car->modelo->brand->name} {$model->car->modelo->name} placa: {$model->car->placa}, es necesario aprobar el ingreso al taller en el siguiente link ".route( 'order_client' , $model->slug);
+						$texto = "Hola, Bienvenido a ".env('APP_NAME').". Gracias por preferirnos. Estamos a punto de ingresar tu vehículo {$model->car->modelo->brand->name} {$model->car->modelo->name} placa: {$model->car->placa}, es necesario aprobar el ingreso al taller en el siguiente link ".route( 'order_client' , $model->slug);
+						$status_logs = collect($model->status_log);
+						if( $status_logs->isNotEmpty() ) {
+							$last_log = $status_logs->last();
+							$last_log->created_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_log->created_at);
+						} else {
+							$last_log = (object) ['created_at' => $model->created_at, 'message' => '', 'aprobacion' => 1];
+						}
+						$class = ($last_log->aprobacion) ? '': 'text-danger';
 						@endphp
 						<div class="col-sm-6 col-md-4">
 							<div class="card">
@@ -55,7 +64,7 @@ $models_7 = $models->where('status', 'ENTR');
 										<a href="{{ route( 'change_status_order' , $model) }}" type="button" class="btn btn-outline-info btn-sm btn-circle"><i class="fa-solid fa-arrow-right"></i></a>
 									</h5>
 									<h6 class="card-subtitle mb-2 text-muted">{{ $model->company->company_name }}</h6>
-									<p class="card-text">{{ $model->created_at->diffForHumans() }}</p>
+									<p class="card-text {{ $class }}">{{ $last_log->message }} {{ $last_log->created_at->diffForHumans() }}</p>
 								</div>
 							</div>
 						</div>
@@ -107,7 +116,7 @@ $models_7 = $models->where('status', 'ENTR');
 					<div class="row">
 						@foreach ($models_4 as $model)
 						@php
-						$texto = "Hola Bienvenido a {env('APP_NAME')}. Estamos a punto de ingresar tu vehículo {$model->brand->name} placa: {$model->car->placa}, es necesario aprobar el ingreso al taller en el siguiente link {route( 'order_client' , $model->slug)}";
+						$texto = "Hola, el diagnóstico de tu vehículo {$model->car->modelo->brand->name} {$model->car->modelo->name} placa: {$model->car->placa} ya está listo, puedes ver los detalles y aprobar la reparación en el siguiente link {route( 'order_client' , $model->slug)}";
 						@endphp
 						<div class="col-sm-6 col-md-4">
 							<div class="card">
@@ -143,79 +152,6 @@ $models_7 = $models->where('status', 'ENTR');
 						</div>
 						@endforeach
 					</div>
-<div class="accordion" id="accordionExample">
-  <div class="card">
-    <div class="card-header pb-0 pt-0" id="headingOne">
-      <h2 class="mb-0">
-        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Mecánica
-        </button>
-      </h2>
-    </div>
-
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-      <div class="card-body">
-        Some placeholder content for the first accordion panel. This panel is shown by default, thanks to the <code>.show</code> class.
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header pb-0 pt-0" id="headingTwo">
-      <h2 class="mb-0">
-        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Planchado
-        </button>
-      </h2>
-    </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-      <div class="card-body">
-        Some placeholder content for the second accordion panel. This panel is hidden by default.
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header pb-0 pt-0" id="headingThree">
-      <h2 class="mb-0">
-        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Pintura
-        </button>
-      </h2>
-    </div>
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-      <div class="card-body">
-        And lastly, the placeholder content for the third and final accordion panel. This panel is hidden by default.
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header pb-0 pt-0" id="armado-tab">
-      <h2 class="mb-0">
-        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-          Armado
-        </button>
-      </h2>
-    </div>
-    <div id="collapseFour" class="collapse" aria-labelledby="armado-tab" data-parent="#accordionExample">
-      <div class="card-body">
-        And lastly, the placeholder content for the third and final accordion panel. This panel is hidden by default.
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header pb-0 pt-0" id="pulido-tab">
-      <h2 class="mb-0">
-        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-          Pulido
-        </button>
-      </h2>
-    </div>
-    <div id="collapseFive" class="collapse" aria-labelledby="pulido-tab" data-parent="#accordionExample">
-      <div class="card-body">
-        And lastly, the placeholder content for the third and final accordion panel. This panel is hidden by default.
-      </div>
-    </div>
-  </div>
-</div>
 				</div>
 				<div class="tab-pane fade" id="control" role="tabpanel" aria-labelledby="control-tab">
 					<h3>CONTROL</h3>
@@ -240,10 +176,14 @@ $models_7 = $models->where('status', 'ENTR');
 					<h3>ENTREGA</h3>
 					<div class="row">
 						@foreach ($models_7 as $model)
+						@php
+						$texto = "Hola, desde ".env('APP_NAME').". queremos agradecerte por usar nuestros servicios, por favor calificanos aquí ".route( 'order_client' , $model->slug) . ", queremos mejorar para ti";
+						@endphp
 						<div class="col-sm-6 col-md-4">
 							<div class="card">
 								<div class="card-body">
 									<h5 class="card-title">#{{ $model->sn }} - {{ $model->car->modelo->brand->name }} {{ $model->car->modelo->name }} {{ $model->car->placa }}
+										<a href="https://wa.me/+51{{ $model->company->mobile }}?text={{ $texto }}" target="_blank" class="btn btn-outline-info btn-sm btn-circle">{!! $icons['whatsapp'] !!}</a>
 										<a href="{{ route( 'recepcion.edit' , $model) }}" type="button" class="btn btn-info btn-sm btn-circle">{!! $icons['edit'] !!}</a>
 										<a href="{{ route( 'change_status_order' , $model) }}" type="button" class="btn btn-info btn-sm btn-circle"><i class="fa-solid fa-arrow-right"></i></a>
 									</h5>

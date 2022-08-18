@@ -63,6 +63,11 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->text('comment');
             $table->json('inventory');
+            $table->json('diagnostico');
+            $table->json('aprobacion');
+            $table->json('reparacion');
+            $table->json('control_calidad');
+            $table->json('status_log');
             $table->json('custom_details');
             $table->bigInteger('my_company')->unsigned();
             $table->string('slug');

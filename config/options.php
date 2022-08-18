@@ -208,11 +208,44 @@ return array(
 	'preventivos' => ['5K' => '5,000', '10K' => '10,000', '15K' => '15,000', '20K' => '20,000', '25K' => '25,000', '30K' => '30,000', '35K' => '35,000', '40K' => '40,000', '45K' => '45,000', '50K' => '50,000', '55K' => '55,000', '60K' => '60,000', '65K' => '65,000', '70K' => '70,000', '75K' => '75,000', '80K' => '80,000', '85K' => '85,000', '90K' => '90,000', '95K' => '95,000', '100K' => '100,000', '105k' => '105,000', '110k' => '110,000', '115k' => '115,000', '120k' => '120,000', '125k' => '125,000', '130k' => '130,000', '135k' => '135,000', '140k' => '140,000', '145k' => '145,000', '150k' => '150,000', '155k' => '155,000', '160k' => '160,000', '165k' => '165,000', '170k' => '170,000', '175k' => '175,000', '180k' => '180,000', '185k' => '185,000', '190k' => '190,000', '195k' => '195,000', '200k' => '200,000', '205k' => '205,000', '210k' => '210,000', '215k' => '215,000', '220k' => '220,000', '225k' => '225,000', '230k' => '230,000', '235k' => '235,000', '240k' => '240,000', '245k' => '245,000', '250k' => '250,000', '255k' => '255,000', '260k' => '260,000', '265k' => '265,000', '270k' => '270,000', '275k' => '275,000', '280k' => '280,000', '285k' => '285,000', '290k' => '290,000', '295k' => '295,000', '300k' => '300,000'],
 	'docs_mov' => [1 => 'Apertura', 2 => 'Ajuste de Inventario - Disminución', 3 => 'Entrada por Compra', 4 => 'Entrada por Producción', 5 => 'Salida por Consumo', 6 => 'Ajuste por inventario - Incremento'],
 	'poll' => [
-		'p1' => '¿Qué tan satisfecho está con el desempeño de su asesor de servicio?',
-		'p2' => '¿Qué tan satisfecho está con la puntualidad en la entrega de su unidad?',
-		'p3' => '¿Qué tan satisfecho quedo con la explicación por el valor del servicio realizado?',
-		'p4' => 'Clasifique su satisfacción con el desempeño general',
-		'p5' => '¿Continuaría trayendo su vehículo aquí para que le realicen el servicio?',
+		'¿Cómo conoció nuestra empresa?' => [
+			'Publicidad en redes sociales',
+			'Publicidad en medios de comunicación',
+			'Recomendación de un amigo',
+			'Otro',
+		],
+		'Califique la atención recibida por su asesor de servicio.' => [
+			'Buena',
+			'Mala',
+		],
+		'Califique nuestras instalaciones' => [
+			'Buenas',
+			'Malas',
+		],
+		'Califique los tiempos de diagnóstico y reparación de su vehículo' => [
+			'Rápidos',
+			'Lentos',
+		],
+		'Califique la calidad de nuestros servicios' => [
+			'Buena',
+			'Mala',
+		],
+		'Califique el nivel de precios de nuestros servicios' => [
+			'Económicos',
+			'Costosos',
+		],
+		'De 1 a 10 ¿Cuál es la probabilidad de que nos recomiende?' => [
+			'1',
+			'2',
+			'3',
+			'4',
+			'5',
+			'6',
+			'7',
+			'8',
+			'9',
+			'10',
+		],
 	],
 	'docs_compras' => [ '1'=>'FACTURA', '2'=>'BOLETA', '3'=>'GUIA', '4'=>'NOTA DE ENTRADA', '5'=>'RECIBO POR HONORARIOS', '6'=>'SERVICIOS PÚBLICOS'],
 	'categorias' => [
@@ -267,6 +300,35 @@ return array(
 			'Chapas Puertas',
 		],
 	],
+	'control_calidad' => [
+		'Resolución de avería' => [
+			'Falla resuelta',
+			'Motor armado',
+			'Motor limpio, libre de fuga de fluidos',
+			'Tren motriz armado',
+			'Tren motriz limpio, libre de fugas de fluidos',
+			'Llantas aseguradas y verificadas',
+			'Llantas calibradas',
+			'Armado de partes móviles desarmadas para la reparación',
+		],
+		'Estado del vehículo' => [
+			'Carrocería limpia, sin manchas de grasa ni fluidos',
+			'Cabina limpia, sin basura, residuos de insumos, fluidos, cableado, etc',
+			'Cabina libre de herramientas',
+			'Cabina libre de equipo técnico como scanner, multímetro, etc',
+			'Compartimiento de motor libre de herramienta y equipo técnico',
+		],
+		'Estado de fluidos' => [
+			'Aceite de motor',
+			'Líquido de frenos',
+			'Líquido de embrague',
+			'Refrigerante',
+			'Aceite hidráulico',
+		],
+	],
+
+
+
 	'eva_interior' => [
 		'ASIENTOS DELANTEROS TAPIZ' => ['LH', 'RH', 'comment'],
 		'ASIENTOS DELANTEROS CABECERA' => ['LH', 'RH', 'comment'],

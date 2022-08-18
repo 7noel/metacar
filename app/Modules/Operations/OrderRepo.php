@@ -6,6 +6,7 @@ use App\Modules\Operations\Order;
 use App\Modules\Storage\MoveRepo;
 use App\Modules\Operations\OrderDetailRepo;
 use App\Modules\Storage\Stock;
+// use Carbon\Carbon;
 
 class OrderRepo extends BaseRepo{
 
@@ -35,8 +36,33 @@ class OrderRepo extends BaseRepo{
 	{
 		$order_status = ['DIAG' => 'diag_at', 'REPU' => 'repu_at', 'APROB' => 'approved_at', 'REPAR' => 'repar_at', 'CONTR' => 'checked_at', 'ENTR' => 'send_at', 'ANUL' => 'canceled_at', 'CERR' => 'invoiced_at'];
 		$data[$order_status[$data['status']]] = date("Y-m-d H:i:s");
-		// dd($data);
-		$model = $this->model->updateOrCreate(['id' => $id], $data);
+		$log['created_at'] = date("Y-m-d H:i:s");
+		// $dt = Carbon::createFromFormat('Y-m-d H:i:s', $log['created_at']);
+		// dd($dt);
+		if (!$data['aprobacion']) {
+			if ($data['status'] == 'DIAG') {
+				$data['status'] = 'PEND';
+			} elseif ($data['status'] == 'REPAR') {
+				$data['status'] = 'APROB';
+			}
+		}
+		
+		$log['status'] = $data['status'];
+		
+		$model = $this->model->findOrFail($id);
+		$log['status_old'] = $model->status;
+		$log['message'] = $data['status_msj'];
+		$log['aprobacion'] = $data['status_aprobacion'];
+
+		$status_log = (array) $model->status_log;
+		$status_log[] = $log;
+		$model->status_log = $status_log;
+		$model->status = $data['status'];
+		if ($data['status'] != 'PEND') {
+			$_at = $order_status[$data['status']];
+			$model->$_at = $data[$order_status[$data['status']]];
+		}
+		$model->save();
 		return $model;
 	}
 	public function save($data, $id=0)
