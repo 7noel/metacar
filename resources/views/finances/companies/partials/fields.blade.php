@@ -3,9 +3,8 @@
 	{!! Form::hidden('country', 'PE', ['id'=>'country', 'required']) !!}
 
 	@if(isset($model))
-	{!! Form::hidden('doc', 'PE', ['id'=>'doc', 'required']) !!}
 	<div class="col-sm-2">
-		{!! Field::text('doc1', ['label' => 'Número RUC', 'class'=>'form-control-sm text-uppercase', 'required', 'readonly']) !!}
+		{!! Field::text('doc', ['label' => 'Número RUC', 'class'=>'form-control-sm text-uppercase', 'required']) !!}
 	</div>
 	@else
 	<div class="col-sm-2">
@@ -56,30 +55,24 @@
 	<div class="col-sm-2">
 		{!! Field::email('email', ['label' => 'Email', 'class'=>'form-control-sm', 'required']) !!}
 	</div>
-	<div class="col-sm-2">
-		{!! Field::password('password', ['label' => 'Contraseña', 'class'=>'form-control-sm', 'required']) !!}
-	</div>
-	<div class="col-sm-2">
-		{!! Field::password('confirmed_password', ['label' => 'Confirmar', 'class'=>'form-control-sm', 'required']) !!}
-	</div>
 	@if(isset($model))
 	<div class="col-sm-2">
-		{!! Field::text('web', ['label'=>'Página web', 'class'=>'form-control-sm']) !!}
+		{!! Field::text('options[web]', ['label'=>'Página web', 'class'=>'form-control-sm', 'required']) !!}
 	</div>
 	<div class="col-sm-2">
-		{!! Field::text('nubefact_ruta', ['label'=>'Ruta de Nubefact', 'class'=>'form-control-sm']) !!}
+		{!! Field::select('options[with_tax]', ['0' => 'NO', '1' => 'SI'], ['label'=>'Precios con igv?', 'empty'=>'Seleccionar', 'class'=>'form-control-sm', 'required']) !!}
 	</div>
 	<div class="col-sm-2">
-		{!! Field::text('nubefact_token', ['label'=>'Token de Nubefact', 'class'=>'form-control-sm']) !!}
+		{!! Field::number('options[tax]', ['label'=>'IGV', 'class'=>'form-control-sm', 'required']) !!}
 	</div>
-	<div class="col-sm-2">
-		{!! Field::file('logo', ['label'=>'Logo', 'class'=>'form-control-sm']) !!}
+	<div class="col-sm-4">
+		{!! Field::text('options[fac_ruta]', ['label'=>'Ruta de Facturación', 'class'=>'form-control-sm']) !!}
 	</div>
-	<div class="col-sm-2">
-		{!! Field::select('size_factura', config('options.config.size'), ['label'=>'Format de Facturas', 'class'=>'form-control-sm']) !!}
+	<div class="col-sm-4">
+		{!! Field::text('options[fac_token]', ['label'=>'Token de Facturación', 'class'=>'form-control-sm']) !!}
 	</div>
-	<div class="col-sm-2">
-		{!! Field::select('size_boleta', config('options.config.size'), ['label'=>'Format de PDF Boletas', 'class'=>'form-control-sm']) !!}
+	<div class="col-sm-4">
+		{!! Field::file('options[logo]', ['label'=>'Logo', 'class'=>'form-control-sm']) !!}
 	</div>
 	<div class="col-sm-2">
 		{!! Field::select('size_retencion', config('options.config.size_2'), ['label'=>'Format de Retenciones', 'class'=>'form-control-sm']) !!}
@@ -89,7 +82,7 @@
 	</div>
 	@endif
 </div>
-@if(isset($model))
+@if(isset($model) and 1==0)
 @php $i=0; @endphp
 <table class="table table-sm table-responsive-xl">
 	<thead>

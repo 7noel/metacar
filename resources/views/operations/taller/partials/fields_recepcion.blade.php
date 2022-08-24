@@ -1,15 +1,14 @@
 @if(isset(session('my_company')->id))
 	{!! Form::hidden('my_company', session('my_company')->id, ['id'=>'my_company']) !!}
+	{!! Form::hidden('with_tax', 0, ['id'=>'with_tax']) !!}
+	{!! Form::hidden('tax', null, ['id'=>'tax']) !!}
 @endif
-{!! Form::hidden('with_tax', 0, ['id'=>'with_tax']) !!}
-{!! Form::hidden('custom_details', 1, ['id'=>'custom_details']) !!}
 {!! Form::hidden('categoria', '', ['id'=>'categoria']) !!}
 {!! Form::hidden('company_id', ((isset($car))? $car->company_id : null), ['id'=>'company_id']) !!}
 {!! Form::hidden('car_id', ((isset($car))? $car->id : null), ['id'=>'car_id']) !!}
 {!! Form::hidden('sn', null, ['id'=>'sn']) !!}
 {!! Form::hidden('total', null, ['id'=>'total']) !!}
 {!! Form::hidden('subtotal', null, ['id'=>'subtotal']) !!}
-{!! Form::hidden('tax', null, ['id'=>'tax']) !!}
 {!! Form::hidden('action', $action, ['id'=>'action']) !!}
 
 @if(!isset($model) and isset($car))

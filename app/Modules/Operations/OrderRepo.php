@@ -73,6 +73,9 @@ class OrderRepo extends BaseRepo{
 			$data['sn'] = $this->getNextNumber($data['order_type'], session('my_company')->id);
 		}
 		$data = $this->prepareData($data);
+		if ($id==0 and $data['order_type'] == 'output_orders') {
+			$data['status_log'][0] = ['created_at' => date("Y-m-d H:i:s"), 'message' => 'Orden Pendiente de aprobación por el Cliente', 'aprobacion' => 1, 'status' =>'PEND'];
+		}
 		if (isset($data['inventory']['photos'][0])) {
 			$i = 0;
 			foreach ($data['inventory']['photos'] as $key => $photo) {

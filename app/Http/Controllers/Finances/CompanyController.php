@@ -67,7 +67,13 @@ class CompanyController extends Controller {
 
 	public function edit($id)
 	{
-		$model = $this->repo->findOrFail($id);
+		if ($id==1) {
+			$model = $this->repo->findCompany($id);
+		} else {
+			$model = $this->repo->findOrFail($id);
+			return view('errors.404');
+		}
+		
 		$jobs = $this->tableRepo->getListType('jobs');
 		$ubigeo = $this->ubigeoRepo->listUbigeo($model->ubigeo_code);
 		return view('partials.edit', compact('model', 'ubigeo', 'jobs'));

@@ -20,6 +20,11 @@ class CompanyRepo extends BaseRepo{
 			return Company::where('entity_type', $type)->orderBy('id', 'DESC')->paginate();
 		}
 	}
+
+	public function findCompany($id)
+	{
+		return Company::findOrFail($id);
+	}
 	
 	public function autocomplete($type, $my_company, $term)
 	{

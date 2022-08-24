@@ -17,7 +17,7 @@
 		</tr>
 	</thead>
 	<tbody id="tableItems">
-	@if(isset($model->custom_details))
+	@if(isset($model->custom_details) and count($model->custom_details))
 	@foreach($model->custom_details as $detail)
 		@php $categories=[]; @endphp
 		<tr>
