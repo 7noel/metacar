@@ -474,7 +474,7 @@ function push() {
         body: 'Esta es una prueba para las notificaciones',
         // icon: '',
         timeout: 4000,
-        vibrate: [100, 100, 100],
+        vibrate: [100, 100],
         onClick: function() {
             window.location="https://demo.taller.net.pe"
         }
