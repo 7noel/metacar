@@ -33,7 +33,8 @@ function notifyMe() {
 }
 
 function pushMe() {
-	Push.create("Hello world!", {
+	Push.Permission.request()
+	Push.create("Push Js!", {
 		body: "How's it hangin'?",
 		icon: '/icon.png',
 		timeout: 4000,
