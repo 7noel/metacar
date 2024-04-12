@@ -200,7 +200,7 @@
 
 $(document).ready(function () {
 
-    Push.Permission.request()
+    // Push.Permission.request()
 
     setInterval(() => {
         console.log("Delayed for 1 second.")
@@ -469,7 +469,7 @@ $(document).ready(function () {
 })
 
 function push() {
-    // Push.Permission.request()
+    Push.Permission.request()
     Push.create("Hola mundo que tal TALLER?", {
         body: 'Esta es una prueba para las notificaciones',
         // icon: '',
