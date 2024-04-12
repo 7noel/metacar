@@ -70,7 +70,7 @@ $models_7 = $models->where('status', 'ENTR');
 						</div>
 						@endforeach
 					</div>
-
+<button onclick="notifyMe()">Notificame!</button>
 
 				</div>
 				<div class="tab-pane fade" id="diagnostico" role="tabpanel" aria-labelledby="diagnostico-tab">
