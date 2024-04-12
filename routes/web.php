@@ -15,6 +15,9 @@ use App\Modules\Finances\Exchange;
 Route::get('houses', function () {
     return view('welcome');
 });
+Route::get('notificaciones', function () {
+    return view('notify');
+});
 Route::get('/', 'HomeController@index');
 // Route::get('cambio1/{y}/{m}', function ($y, $m) {
 // 	$last_tc = Exchange::orderBy('fecha', 'desc')->first();
