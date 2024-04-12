@@ -475,7 +475,7 @@ function push() {
         // icon: '',
         timeout: 4000,
         vibrate: [100, 100, 100],
-        onclick: function() {
+        onClick: function() {
             window.location="https://demo.taller.net.pe"
         }
     })
