@@ -476,7 +476,7 @@ function notifyMe() {
         }
         let title = 'Título de la notificación';
         var extra = {
-           body: 'Mensaje de la notifiación';
+           body: 'Mensaje de la notifiación'
         }
         var noti = new Notification( title, extra)
         noti.onclick = {
