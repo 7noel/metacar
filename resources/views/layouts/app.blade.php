@@ -477,7 +477,6 @@ function push() {
         vibrate: [100, 100, 100],
         onClick: function() {
             window.location="https://demo.taller.net.pe"
-            this.close()
         }
     })
 }
