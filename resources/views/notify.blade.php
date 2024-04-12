@@ -8,8 +8,8 @@
 <body>
 	<h1>PRUEBA</h1>
 
-
-	<button onclick="notifyMe()">Notificame!</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.12/push.min.js" integrity="sha512-DjIQO7OxE8rKQrBLpVCk60Zu0mcFfNx2nVduB96yk5HS/poYZAkYu5fxpwXj3iet91Ezqq2TNN6cJh9Y5NtfWg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<button onclick="pushMe()">Notificame!</button>
 <script>
 
 function notifyMe() {
@@ -30,6 +30,18 @@ function notifyMe() {
         }
         setTimeout( function() { noti.close() }, 10000)
     }
+}
+
+function pushMe() {
+	Push.create("Hello world!", {
+		body: "How's it hangin'?",
+		icon: '/icon.png',
+		timeout: 4000,
+		onClick: function () {
+		    window.focus();
+		    this.close();
+		}
+	})
 }
 
 </script>
