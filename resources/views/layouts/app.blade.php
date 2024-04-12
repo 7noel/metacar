@@ -24,7 +24,10 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
     <!-- Jquery ui js -->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js" integrity="sha512-eiqtDDb4GUVCSqOSOTz/s/eiU4B31GrdSb17aPAA4Lv/Cjc8o+hnDvuNkgXhSI5yHuDvYkuojMaQmrB5JB31XQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Notificaciones -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -196,6 +199,14 @@
     <script>
 
 $(document).ready(function () {
+
+    Push.Permission.request()
+
+    setInterval(() => {
+        console.log("Delayed for 1 second.")
+        push()
+    }, 10000);
+
     categorias = `<option value="REPUESTOS">REPUESTOS</option>`
     @foreach($menu->categorias() as $id => $cat)
         categorias += `<option value="{{ $id }}">{{ $cat }}</option>`
@@ -328,46 +339,7 @@ $(document).ready(function () {
     });
 
     my_company = $('#my_company').val()
-    $('#txtCompany').autocomplete({
-        source: "/api/companies/autocompleteAjax/clients/"+my_company+"/",
-        minLength: 4,
-        select: function(event, ui){
-            $('#company_id').val(ui.item.id)
-            if ($('#contact_name').val() !== undefined) {
-                if ($('#contact_name').val().trim() == '') {$('#contact_name').val(ui.item.company_name)}
-                if ($('#contact_email').val().trim() == '') {$('#contact_email').val(ui.item.email)}
-                if ($('#contact_phone').val().trim() == '') {$('#contact_phone').val(ui.item.phone)}
-                if ($('#contact_mobile').val().trim() == '') {$('#contact_mobile').val(ui.item.mobile)}
-            }
-            $('#branch_id').empty()
-            $('#branch_id').append(`<option value=''>Seleccionar</option>`)
-            ui.item.branches.forEach(function (b) {
-                $('#branch_id').append(`<option value='${b.id}'>${b.company_name}</option>`)
-            })
-            $('#branch_id').focus()
-        }
-    })
-    $('#txtProvider').autocomplete({
-        source: "/api/companies/autocompleteAjax/providers/"+my_company+"/",
-        minLength: 4,
-        select: function(event, ui){
-            $('#company_id').val(ui.item.id)
-        }
-    })
 
-    $('#txtShipper').autocomplete({
-        source: "/api/companies/autocompleteAjax/shippers/"+my_company+"/",
-        minLength: 4,
-        select: function(event, ui){
-            $('#shipper_id').val(ui.item.id)
-            $('#branch_shipper_id').empty()
-            $('#branch_shipper_id').append(`<option value=''>Seleccionar</option>`)
-            ui.item.branches.forEach(function (b) {
-                $('#branch_shipper_id').append(`<option value='${b.id}'>${b.company_name}</option>`)
-            })
-            $('#branch_shipper_id').focus()
-        }
-    })
 
     $('#btnNewAttribute').click(function() {
         var items = $('#items-attribute').val()
@@ -495,6 +467,20 @@ $(document).ready(function () {
 
     })
 })
+
+function push() {
+    // Push.Permission.request()
+    Push.create("Hola mundo que tal TALLER?", {
+        body: 'Esta es una prueba para las notificaciones',
+        // icon: '',
+        timeout: 4000,
+        vibrate: [100, 100, 100],
+        onclick: function() {
+            window.location="https://demo.taller.net.pe"
+        }
+    })
+}
+
 function mostrarOcultarElementos(cadena_mostrar, cadena_ocultar) {
     var mostrar_ids = cadena_mostrar.split(',')
     var ocultar_ids = cadena_ocultar.split(',')
